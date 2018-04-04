@@ -29,7 +29,7 @@ const ROUTESTACK = [
   { label: 'Facebook', title: 'Scene' }, // label is what you see in the top bar
   { label: 'YouTube', title: 'Scene' }, // title is just the name of the Component being rendered.  See the renderScene property below
   { label: 'Instagram', title: 'Scene' },
-  { label: 'Pintrest', title: 'Scene' },
+  { label: 'Pinterest', title: 'Scene' },
   { label: 'Twitter', title: 'Scene' }
 ];
 
@@ -191,9 +191,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
+  //headerStyle: {
+   // borderBottomWidth: 1,
+   // borderColor: '#e6faff',
+    //backgroundColor: '#fff'
+  //},
   underlineStyle: {
     height: 3.6,
     backgroundColor: '#ff3d3d'
+  },
+ labelStyle: {
+    fontSize: 13,
+    fontWeight: '500',
+    color: '#000'
   },
   
 });
