@@ -8,18 +8,23 @@ import Colors from '../constants/Colors';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import CreateScreen from '../screens/CreateScreen';
+import SearchScreen from '../screens/SearchScreen';
 
 export default TabNavigator(
   {
-    Search: {
+    Home: {
       screen: HomeScreen,
     },
     Create: {
-      screen: LinksScreen,
+      screen: CreateScreen,
+    },
+    Search: {
+      screen: SearchScreen,
     },
     Settings: {
       screen: SettingsScreen,
-    },
+    }
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -27,18 +32,13 @@ export default TabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
-          case 'Search':
-            iconName =
-              Platform.OS === 'ios'
-                ? `ios-search${focused ? '' : '-outline'}`
-                : 'pencil';
+          case 'Search': iconName = Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'pencil';
             break;
-          case 'Create':
-            iconName = Platform.OS === 'ios' ? `ios-brush${focused ? '' : '-outline'}` : 'brush';
+          case 'Create': iconName = Platform.OS === 'ios' ? `ios-brush${focused ? '' : '-outline'}` : 'brush';
             break;
-          case 'Settings':
-            iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
+          case 'Home': iconName = Platform.OS === 'ios' ? `ios-home${focused ? '' : '-outline'}` : 'md-options';
+	    break;
+	  case 'Settings': iconName = Platform.OS === 'ios' ? `ios-settings${focused ? '' : '-outline'}` : 'ion-android-settings';
         }
         return (
           <Ionicons
