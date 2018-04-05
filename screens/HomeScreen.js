@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { WebBrowser } from 'expo';
+import { MonoText } from '../components/StyledText';
+import TopBarNav from 'top-bar-nav';
+
 import {
   Image,
   Platform,
@@ -7,32 +11,50 @@ import {
   Text,
   TouchableOpacity,
   View,
+  TextInput,
+  Dimensions
 } from 'react-native';
-import { WebBrowser } from 'expo';
 
-import { MonoText } from '../components/StyledText';
-import TopBarNav from 'top-bar-nav';
+var height = Dimensions.get('window').height;
+var width = Dimensions.get('window').width;
 
-const Scene = ({ index }) => (
+const All = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text style={{ fontSize: 20 }}>{index}</Text>
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+	<Tile />
+    </ScrollView>
+  </View>
+);
+
+const ByApp = ({ index }) => (
+  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+   <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+	<Tile> Hi There!  </Tile>
+    </ScrollView>	
   </View>
 );
 
 const ROUTES = {
-  Scene,
+  All,
+  ByApp
   // ideally you would have a ROUTES object with multiple React component scenes
 };
 
 const ROUTESTACK = [
-  { label: 'All', title: 'Scene' },
-  { label: 'Facebook', title: 'Scene' }, // label is what you see in the top bar
-  { label: 'YouTube', title: 'Scene' }, // title is just the name of the Component being rendered.  See the renderScene property below
-  { label: 'Instagram', title: 'Scene' },
-  { label: 'Pinterest', title: 'Scene' },
-  { label: 'Twitter', title: 'Scene' }
+//  { image: require('../assets/images/iconimg.png'), title: 'Scene' },
+  { label: 'All', title: 'All' },
+  { label: 'By App', title: 'ByApp' }, // label is what you see in the top bar // title is just the name of the Component being rendered.  See the renderScene property below
 ];
 
+class Tile extends Component {
+  render() {
+	return (
+		<View style={styles.tilec}>
+			<Text> {this.props.children}</Text>
+		</View>
+	)
+  }
+}
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
 	header: null
@@ -43,29 +65,25 @@ export default class HomeScreen extends React.Component {
 
       <View style={styles.container}>
 	<View style={{ flex: 1}}>
-        <TopBarNav
-          // routeStack and renderScene are required props
-          routeStack={ROUTESTACK}
-          renderScene={(route, i) => {
-            // This is a lot like the now deprecated Navigator component
-            let Component = ROUTES[route.title];
-            return <Component index={i} />;
-          }}
-          // Below are optional props
-          headerStyle={[styles.headerStyle, { paddingTop: 30 }]} // probably want to add paddingTop: 20 if using TopBarNav for the  entire height of screen on iOS
-          labelStyle={styles.labelStyle}
-          underlineStyle={styles.underlineStyle}
-          imageStyle={styles.imageStyle}
-          sidePadding={5} // Can't set sidePadding in headerStyle because it's needed to calculate the width of the tabs
-          inactiveOpacity={1}
-          fadeLabels={false}
-        />
-      </View>
-
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-
-        </ScrollView>
-
+		<TopBarNav
+		  // routeStack and renderScene are required props
+		  routeStack={ROUTESTACK}
+		  renderScene={(route, i) => {
+		    // This is a lot like the now deprecated Navigator component
+		    let Component = ROUTES[route.title];
+		    return (<Component />);
+		  }}
+		  // Below are optional props
+		  headerStyle={[styles.headerStyle, { paddingTop: 30 }]} // probably want to add paddingTop: 20 if using TopBarNav for the  entire height of screen on iOS
+		  labelStyle={styles.labelStyle}
+		  underlineStyle={styles.underlineStyle}
+		  imageStyle={styles.imageStyle}
+		  sidePadding={80} // Can't set sidePadding in headerStyle because it's needed to calculate the width of the tabs
+		  bottomPadding={20}
+		  inactiveOpacity={0.5}
+		  fadeLabels={false}
+		/>
+      	</View>
       </View>
     );
   }
@@ -104,10 +122,21 @@ export default class HomeScreen extends React.Component {
   };
 }
 
+const tileStyle = StyleSheet.create({
+  container: {
+		backgroundColor: 'white',
+	}, 
+});
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'lightgrey',
+  },
+  tilec: {
+	backgroundColor: 'white',
+	height: 200,
+	width: width,
   },
   developmentModeText: {
     marginBottom: 20,
@@ -197,13 +226,19 @@ const styles = StyleSheet.create({
     //backgroundColor: '#fff'
   //},
   underlineStyle: {
-    height: 3.6,
-    backgroundColor: '#ff3d3d'
+    height: 1.5,
+    backgroundColor: '#ff3d3d',
+    marginTop: 12 
   },
  labelStyle: {
-    fontSize: 13,
+    fontSize: 20,
     fontWeight: '500',
-    color: '#000'
+    color: '#000',
+  },
+  imageStyle: {
+    height: 35,
+    width: 35,
+   // tintColor: '#e6faff'
   },
   
 });
