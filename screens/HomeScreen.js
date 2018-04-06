@@ -23,6 +23,14 @@ let imageSources = {
         yt: require('../assets/images/yt.png'),
         fa: require('../assets/images/er.png'), //fallback
 }
+let appSources = { 
+        fb: 'Facebook',
+        tw: 'Twitter',
+        ig: 'Instagram',
+        pt: 'Pinterest',
+        yt: 'YouTube',
+        fa: 'Undefined', //fallback
+}
 
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width;
@@ -30,7 +38,7 @@ var width = Dimensions.get('window').width;
 const All = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-	<Tile> This is just an inspirational line, inspiring you to... be inspirational </Tile>
+	<Tile datet={'April 5, 2018 8:37 pm'}> This is just an inspirational line, inspiring you to... be inspirational </Tile>
     </ScrollView>
   </View>
 );
@@ -38,12 +46,12 @@ const All = ({ index }) => (
 const ByApp = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-	{/* //foreach... <Tile> data.contents </Tile> */}
-	<Tile src={'fb'}> Theres a facebook status that no one cares about! </Tile>
-	<Tile src={'ig'}> Cute instagram pic with you and bae! </Tile>
-	<Tile src={'tw'}> This would be a tweet! But you have none.. </Tile>
-	<Tile src={'yt'}> YouTube content, if you had any. </Tile>
-	<Tile src={'pt'}> Who even uses pintrest? </Tile>
+	{/* //foreach... <Tile src={'fb'}> data.contents </Tile> */}
+	<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>
+	<Tile src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>
+	<Tile src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>
+	<Tile src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>
+	<Tile src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>
 	<Tile> This tile comes from nowhere, so theres no icon </Tile>
 	<Tile> This tile comes from nowhere, so theres no icon </Tile>
     </ScrollView>	
@@ -65,18 +73,30 @@ const ROUTESTACK = [
 //Declaration of Tile Class:
 class Tile extends Component {
   render() {
+  
+  var app = this.props.src;
+  var date = this.props.datet;
 
-  var sup = this.props.src;
-
-  if (this.props.src === undefined ){
-     var sup = 'fa';
+  if (date === undefined){
+     var date = 'No date information';
+  }
+  if (app === undefined ){
+     var app = 'fa';
   }
 
-  const srcPath = imageSources[sup];
+  const srcPath = imageSources[app];
+  const appName = appSources[app];
 	return (
 		<View style={styles.tilea}>
-		<Image style={styles.apiicon} source={srcPath} />
-			<Text> {this.props.children}</Text>
+		<View style={{flex: 1, flexDirection:'row'}}>
+			<Image style={styles.apiicon} source={srcPath} />
+			<View style={styles.appdetails}>
+				<Text style={styles.apptitle}> app/{appName} </Text>
+				<Text style={styles.postdate}> Posted on: {date} </Text>
+			</View>
+		</View>
+			
+			<Text style={styles.appdata}> {this.props.children}</Text>
 		</View>
 	)
   }
@@ -159,16 +179,45 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'lightgrey',
+    //paddingTop: 15,
   },
   apiicon: {
-	height:50, width:50, marginTop: height/60, marginLeft: width/30
+	flex: 1,
+	resizeMode: 'contain',
+	height:50, 
+	width:50, 
+	marginTop: height/60, 
+	marginLeft: width/30
+  },
+  apptitle: {
+	flex: 1,
+	fontWeight: '500',
+	//marginTop: height/25,
+	//marginLeft: width/35,
+	color: 'grey',
+  },
+  appdata: {
+	flex: 2,
+	marginTop: height/60,
+	marginLeft: width/45,
+  },
+  postdate: {
+	flex: 2,
+	fontWeight: '300',
+	color: 'grey',
+  },
+  appdetails: {
+	flex: 6, 
+	flexDirection: 'column',
+	marginTop: height/27,
+	marginLeft: width/35,
   },
   tilea: {
 	backgroundColor: 'white',
 	height: 200,
 	width: width-20,
-	marginTop: 15,
-	marginBottom: 0,
+	//marginTop: 15,
+	marginBottom: 15,
 	marginLeft: 10,
 	marginRight: 10,
   },
@@ -189,7 +238,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-  //  paddingTop: 15,
+    paddingTop: 15,
    // paddingBottom: 15,
   },
   welcomeContainer: {
@@ -264,11 +313,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
-  //headerStyle: {
-   // borderBottomWidth: 1,
-   // borderColor: '#e6faff',
-    //backgroundColor: '#fff'
-  //},
+  headerStyle: {
+    //borderBottomWidth: 15,
+    //borderColor: 'lightgrey',
+    //backgroundColor: '#fff',
+  //marginBottom: 0,
+  },
   underlineStyle: {
     height: 1.5,
     backgroundColor: '#ff3d3d',
