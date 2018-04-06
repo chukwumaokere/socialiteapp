@@ -15,13 +15,22 @@ import {
   Dimensions
 } from 'react-native';
 
+let imageSources = { 
+        fb: require('../assets/images/fb.png'),
+        tw: require('../assets/images/tw.png'),
+        ig: require('../assets/images/ig.png'),
+        pt: require('../assets/images/pt.png'),
+        yt: require('../assets/images/yt.png'),
+        fa: require('../assets/images/er.png'), //fallback
+}
+
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width;
 
 const All = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-	<Tile />
+	<Tile> This is just an inspirational line, inspiring you to... be inspirational </Tile>
     </ScrollView>
   </View>
 );
@@ -29,7 +38,14 @@ const All = ({ index }) => (
 const ByApp = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-	<Tile> Hi There!  </Tile>
+	{/* //foreach... <Tile> data.contents </Tile> */}
+	<Tile src={'fb'}> Theres a facebook status that no one cares about! </Tile>
+	<Tile src={'ig'}> Cute instagram pic with you and bae! </Tile>
+	<Tile src={'tw'}> This would be a tweet! But you have none.. </Tile>
+	<Tile src={'yt'}> YouTube content, if you had any. </Tile>
+	<Tile src={'pt'}> Who even uses pintrest? </Tile>
+	<Tile> This tile comes from nowhere, so theres no icon </Tile>
+	<Tile> This tile comes from nowhere, so theres no icon </Tile>
     </ScrollView>	
   </View>
 );
@@ -46,15 +62,26 @@ const ROUTESTACK = [
   { label: 'By App', title: 'ByApp' }, // label is what you see in the top bar // title is just the name of the Component being rendered.  See the renderScene property below
 ];
 
+//Declaration of Tile Class:
 class Tile extends Component {
   render() {
+
+  var sup = this.props.src;
+
+  if (this.props.src === undefined ){
+     var sup = 'fa';
+  }
+
+  const srcPath = imageSources[sup];
 	return (
-		<View style={styles.tilec}>
+		<View style={styles.tilea}>
+		<Image style={styles.apiicon} source={srcPath} />
 			<Text> {this.props.children}</Text>
 		</View>
 	)
   }
 }
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
 	header: null
@@ -133,11 +160,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'lightgrey',
   },
-  tilec: {
+  apiicon: {
+	height:50, width:50, marginTop: height/60, marginLeft: width/30
+  },
+  tilea: {
 	backgroundColor: 'white',
 	height: 200,
-	width: width,
+	width: width-20,
+	marginTop: 15,
+	marginBottom: 0,
+	marginLeft: 10,
+	marginRight: 10,
   },
+  tileb: {
+        backgroundColor: 'white',
+        height: 200,
+        width: width+50,
+        marginTop: 15, 
+        marginBottom: 15, 
+        //marginLeft: 5,
+        marginRight: 10, 
+  }, 
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
@@ -146,7 +189,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
+  //  paddingTop: 15,
+   // paddingBottom: 15,
   },
   welcomeContainer: {
     alignItems: 'center',
