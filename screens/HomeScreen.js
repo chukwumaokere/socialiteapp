@@ -14,7 +14,7 @@ import {
   TextInput,
   Dimensions
 } from 'react-native';
-
+var logo = require('../assets/images/icon.png');
 let imageSources = { 
         fb: require('../assets/images/fb.png'),
         tw: require('../assets/images/tw.png'),
@@ -107,12 +107,15 @@ export default class HomeScreen extends React.Component {
 	header: null
   };
 
-  render() {
+  render() { 
+    
     return (
 
       <View style={styles.container}>
 	<View style={{ flex: 1}}>
 		<TopBarNav
+		  //custom: added logo param
+                  icon={logo}
 		  // routeStack and renderScene are required props
 		  routeStack={ROUTESTACK}
 		  renderScene={(route, i) => {
@@ -168,12 +171,6 @@ export default class HomeScreen extends React.Component {
     );
   };
 }
-
-const tileStyle = StyleSheet.create({
-  container: {
-		backgroundColor: 'white',
-	}, 
-});
 
 const styles = StyleSheet.create({
   container: {
