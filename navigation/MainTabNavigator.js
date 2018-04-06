@@ -1,7 +1,7 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { TabNavigator, TabBarBottom } from 'react-navigation';
+import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
 
 import Colors from '../constants/Colors';
 
@@ -10,6 +10,8 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import CreateScreen from '../screens/CreateScreen';
 import SearchScreen from '../screens/SearchScreen';
+
+
 
 export default TabNavigator(
   {
@@ -59,4 +61,4 @@ export default TabNavigator(
     animationEnabled: false,
     swipeEnabled: false,
   }
-);
+); 
