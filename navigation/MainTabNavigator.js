@@ -37,7 +37,7 @@ class CreateModal extends Component {
     return (
       <View style={{marginTop: 22}}>
         <Modal
-          animationType="fade"
+          animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
