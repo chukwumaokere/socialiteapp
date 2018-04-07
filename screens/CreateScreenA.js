@@ -74,7 +74,7 @@ setModalVisible(visible) {
 
               <TouchableHighlight
                 onPress={() => {
-	navigation.navigate('Home')
+		this.setModalVisible(false);
         {/*  this.props.navigation.dispatch(navigateAction);    */}
                 }}>
                 <Text>Hide Modal</Text>
