@@ -4,6 +4,8 @@ import { Platform,
 	View, 
 	StyleSheet,
 	Image,
+	Modal,
+	TouchableHighlight,
 	Text,
 	TouchableOpacity,
 	TextInput,
@@ -48,6 +50,7 @@ class CreateModal extends Component {
               <TouchableHighlight
                 onPress={() => {
                   this.setModalVisible(false);
+	          navigation.navigate('Home');
         {/*  this.props.navigation.dispatch(navigateAction);    */}
                 }}>
                 <Text>Hide Modal</Text>
@@ -75,7 +78,7 @@ export default TabNavigator(
       screen: HomeScreen,
     },
     Create: {
-      screen: CreateScreen,
+      screen: CreateModal,
     },
     Search: {
       screen: SearchScreen,
@@ -110,7 +113,8 @@ export default TabNavigator(
 	tabBarOnPress: ({route, jumpToIndex}) => {
 		const { routeName } = navigation.state;
 		if (routeName == 'Create'){
-			return(<CreateModal show={true}/>);
+			navigation.navigate(routeName);
+			return(<View> <CreateModal show={true}/> </View>);
 			console.log(routeName);
 		}else{
 			navigation.navigate(routeName);
