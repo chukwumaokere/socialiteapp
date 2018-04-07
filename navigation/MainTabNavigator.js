@@ -33,24 +33,43 @@ class CreateModal extends Component {
   }
 
   render() {
-    var show = this.props.show;
+	const { params } = this.props.navigation.state;
+	const show = params ? params.show : null;
+	const prevSc = params ? params.prevScene : null;
+	console.log(this.state.modalVisible);	
+	if (this.state.modalVisible == false){
+		console.log('falsy');
+		var vis = true;
+		return null;
+	}else{
+		var vis = true;
+		console.log('noey');
+	
     return (
       <View style={{marginTop: 22}}>
         <Modal
           animationType="slide"
           transparent={false}
-          visible={this.state.modalVisible}
+          visible={vis}
           onRequestClose={() => {
             alert('Modal has been closed.');
-          }}>
+	   console.log(show);
+	  }}
+	  onDismiss={() => {
+	//	this.setModalVisible(true);
+		this.props.navigation.navigate(prevSc);
+	  }}
+          >
           <View style={{marginTop: 22}}>
             <View>
               <Text>Hello World!</Text>
 
               <TouchableHighlight
                 onPress={() => {
+		  this.props.navigation.navigate(prevSc);
                   this.setModalVisible(false);
-	          navigation.navigate('Home');
+		  console.log(JSON.stringify(show));
+{/*	          navigation.navigate('Home');*/}
         {/*  this.props.navigation.dispatch(navigateAction);    */}
                 }}>
                 <Text>Hide Modal</Text>
@@ -62,11 +81,12 @@ class CreateModal extends Component {
         <TouchableHighlight
           onPress={() => {
             this.setModalVisible(true);
+		console.log('Hi');
           }}>
-          <Text>Show Modal</Text>
+          <Text>Show Modals</Text>
         </TouchableHighlight>
       </View>
-    );
+    );}
   }
 }
 
@@ -110,10 +130,10 @@ export default TabNavigator(
           />
         );
       },
-	tabBarOnPress: ({route, jumpToIndex}) => {
+	tabBarOnPress: ({previousScene, route, jumpToIndex}) => {
 		const { routeName } = navigation.state;
 		if (routeName == 'Create'){
-			navigation.navigate(routeName);
+			navigation.navigate(routeName, {show: true, prevScene: previousScene});
 			return(<View> <CreateModal show={true}/> </View>);
 			console.log(routeName);
 		}else{
