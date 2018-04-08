@@ -4,6 +4,7 @@ import { MonoText } from '../components/StyledText';
 import TopBarNav from 'top-bar-nav';
 
 import {
+  Picker,
   Image,
   Platform,
   ScrollView,
@@ -38,7 +39,14 @@ var width = Dimensions.get('window').width;
 const All = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-	<Tile datet={'April 5, 2018 8:37 pm'}> This is just an inspirational line, inspiring you to... be inspirational </Tile>
+	
+	<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>
+        <Tile src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>
+        <Tile src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>
+        <Tile src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>
+        <Tile src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>
+        <Tile> This tile comes from nowhere, so theres no icon </Tile>
+        <Tile> This tile comes from nowhere, so theres no icon </Tile>
     </ScrollView>
   </View>
 );
@@ -48,12 +56,11 @@ const ByApp = ({ index }) => (
    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 	{/* //foreach... <Tile src={'fb'}> data.contents </Tile> */}
 	<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>
-	<Tile src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>
-	<Tile src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>
-	<Tile src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>
-	<Tile src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>
-	<Tile> This tile comes from nowhere, so theres no icon </Tile>
-	<Tile> This tile comes from nowhere, so theres no icon </Tile>
+	<Tile src={'fb'} datet={'April 5, 2018 11:36 am'}> Phillip is a tool </Tile>
+	<Tile src={'fb'} datet={'April 5, 2018 10:25 am'}> Marsha is pregnant... again </Tile>
+	<Tile src={'fb'} datet={'April 4, 2018 10:24 pm'}> Cindy is engaged AGAIN.. </Tile>
+	<Tile src={'fb'} datet={'April 4, 2018 09:34 pm'}> Sharkeisha is Sharkeisha </Tile>
+	<Tile src={'fb'} datet={'April 5, 2018 8:37 pm'}> This is just an inspirational line, inspiring you to... be inspirational </Tile>
     </ScrollView>	
   </View>
 );
