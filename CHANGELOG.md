@@ -1,3 +1,9 @@
+# v0.0.4 (Alpha)
+-Added proper create screen with styling 
+-Changed All/ByApp demo layout  
+-Added checkbox states  
+-Added react-native-elements to package list
+
 # v0.0.3 (Alpha)  
 -Added icons to the top-bar-nav class properties   
 -Added socialite icon  
