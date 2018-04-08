@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Platform, 
 	TouchableWithoutFeedback, 
-	View, 
+	View,
+	Button, 
 	StyleSheet,
 	Image,
 	Modal,
@@ -28,19 +29,21 @@ class CreateModal extends Component {
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
-  onPress = () => {
-        this.setModalVisible(true);
+  resetModalState(){
+	this.setState({modalVisible: true});
   }
 
   render() {
 	const { params } = this.props.navigation.state;
-	const show = params ? params.show : null;
+	var show = params ? params.show : null;
 	const prevSc = params ? params.prevScene : null;
 	console.log(this.state.modalVisible);	
 	if (this.state.modalVisible == false){
 		console.log('falsy');
+		this.props.navigation.navigate(prevSc);
+		var show = true;
 		var vis = true;
-		return null;
+		return this.state.modalVisible = true;
 	}else{
 		var vis = true;
 		console.log('noey');
@@ -50,30 +53,33 @@ class CreateModal extends Component {
         <Modal
           animationType="slide"
           transparent={false}
-          visible={vis}
+          visible={show}
           onRequestClose={() => {
             alert('Modal has been closed.');
 	   console.log(show);
 	  }}
 	  onDismiss={() => {
-	//	this.setModalVisible(true);
 		this.props.navigation.navigate(prevSc);
 	  }}
           >
           <View style={{marginTop: 22}}>
             <View>
-              <Text>Hello World!</Text>
-
+		<Text style={{fontWeight: 'bold', fontSize: 30, textAlign: 'center', marginTop: 5}}>Create Post</Text>
+		<TextInput style={{ borderWidth: 2 , height: 300, borderRadius: 15, marginTop: 30, marginLeft: 10, marginRight: 10 }}/>
+{/*
               <TouchableHighlight
                 onPress={() => {
 		  this.props.navigation.navigate(prevSc);
                   this.setModalVisible(false);
 		  console.log(JSON.stringify(show));
+		  {/*this.resetModalState(); //might need async here */}
 {/*	          navigation.navigate('Home');*/}
         {/*  this.props.navigation.dispatch(navigateAction);    */}
                 }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
+	{/*	<Button title={'Hello'} onPress={() => { console.log('closing')}}  /> */}
+   {/*           </TouchableHighlight>*/}
+		<Button title={'Submit'} onPress={() => { console.log('sending'); } } />
+		<Button title={'Close'} onPress={() => { console.log('closing'); return this.setModalVisible( false)}}  />
             </View>
           </View>
         </Modal>
