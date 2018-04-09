@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Platform, 
+	CameraRoll,
 	TouchableWithoutFeedback, 
 	View,
 	Button, 
@@ -26,37 +27,48 @@ import SearchScreen from '../screens/SearchScreen';
 class CreateModal extends Component {
   state = {
     modalVisible: true,
-   checkboxes: {
     fbChecked: false,
     igChecked: false,
     twChecked: false,
     ytChecked: false,
-    ptChecked: false
-   },
+    ptChecked: false,
+    message: null,
+    photos: [],
   };
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
-  resetModalState(){
-	this.setState({modalVisible: true});
+  toggleModal = () => {
+	this.setState({modalVisible: !this.state.Visible});
   }
-
+  resetModalState(){
+	if (true == true){
+		this.state.modalVisible = true;
+		console.log(this.componentWillUnmount());
+	}
+	return true;
+  }
+  getPhotos = () => {
+	CameraRoll.getPhotos({
+		first: 20,
+		assetType: 'All'
+	}).then(r => this.setState({photos: r.edges}))
+  }	
+  navigate = () => {
+    const {navigate} = this.props.navigation
+	navigate('HomeScreen');
+  }
   render() {
 	const { params } = this.props.navigation.state;
 	var show = params ? params.show : null;
 	const prevSc = params ? params.prevScene : null;
-	console.log(this.state.modalVisible);	
 	if (this.state.modalVisible == false){
-		console.log('falsy');
-		this.props.navigation.navigate(prevSc);
 		var show = true;
 		var vis = true;
-		return this.state.modalVisible = true;
+		return(this.resetModalState())
 	}else{
 		var vis = true;
-		console.log('noey');
-	
     return (
       <View style={{marginTop: 0}}>
         <Modal
@@ -65,17 +77,16 @@ class CreateModal extends Component {
           visible={show}
           onRequestClose={() => {
             alert('Modal has been closed.');
-	   console.log(show);
 	  }}
 	  onDismiss={() => {
-		this.props.navigation.navigate(prevSc);
+		console.log('closing');
 	  }}
           >
           <View style={{marginTop: 25, marginBottom: 25}}>
             <View>
 		<View style={{backgroundColor: 'white', flex: 0, flexDirection: 'row', paddingLeft: 0, paddingRight: 0, marginTop: 20, marginBottom: 0}}>
 			<View style={styles.container, {flex: 3}}>
-				<TouchableHighlight style={styles.button} onPress={() => { console.log('closing'); this.setState({modalVisible: false, fbChecked: false, igChecked: false, twChecked: false, ptChecked: false, ytChecked: false})} }>	
+				<TouchableHighlight style={styles.button} onPress={() => {this.setModalVisible(false); this.setState({fbChecked: false, igChecked: false, twChecked: false, ptChecked: false, ytChecked: false}); this.props.navigation.navigate(prevSc); } }>	
 					<Text style={{fontSize: 18}}>Cancel</Text>
 				</TouchableHighlight>
 			</View>
@@ -83,14 +94,17 @@ class CreateModal extends Component {
 			<Text style={{flex: 6, fontWeight: 'bold', fontSize: 30, textAlign: 'center', marginTop: 0}}>Create Post</Text>
 
 			<View style={styles.container, {flex: 3}}>
-				<TouchableHighlight style={styles.button} onPress={() => { console.log('sending'); console.log(this.state.checkboxes) } }> 
+				<TouchableHighlight style={styles.button} onPress={() => { console.log('sending'); console.log(this.state) } }> 
 					<Text style={{fontSize: 18}}>Post</Text>
 				</TouchableHighlight>
 			</View>
 		</View>
 
 		<ScrollView style={{marginTop: 0, marginBottom: 110}}>
-		<TextInput style={{ padding: 20, paddingTop:20, paddingBottom: 20, borderWidth: 2 , height: 300, borderRadius: 15, marginTop: 10, marginLeft: 10, marginRight: 10, marginBottom: 25 }} placeholder={'Write something meaningful...'} multiline={true} />
+		<View style={{margin: 10, marginBottom: 10}} >
+		<TextInput style={{ padding: 20, paddingTop:20, paddingBottom: 20, borderWidth: 2 , height: 250, borderRadius: 15, marginBottom: 5 }} placeholder={'Write something meaningful...'} multiline={true} onChangeText={(something) => { {/* console.log(something); */} this.setState({message: something}) } } />
+			<CheckBox title={'Add Photo/Video'} checked={true} checkedIcon={'plus'} checkedColor={'lightgrey'} onPress={() => {console.log('poppin up'); CameraRoll.getPhotos() } } />
+		</View>
 			<CheckBox title={'Facebook'} checked={this.state.fbChecked} onPress={() => this.setState({fbChecked: !this.state.fbChecked}) } />
 			<CheckBox title={'Instagram'} checked={this.state.igChecked} onPress={() => this.setState({igChecked: !this.state.igChecked}) } />
 			<CheckBox title={'Twitter'} checked={this.state.twChecked} onPress={() => this.setState({twChecked: !this.state.twChecked}) } />
