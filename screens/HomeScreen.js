@@ -221,9 +221,10 @@ const styles = StyleSheet.create({
 	height: 200,
 	width: width-20,
 	//marginTop: 15,
-	marginBottom: 15,
+	marginBottom: 10,
 	marginLeft: 10,
 	marginRight: 10,
+	borderRadius: 2
   },
   tileb: {
         backgroundColor: 'white',
