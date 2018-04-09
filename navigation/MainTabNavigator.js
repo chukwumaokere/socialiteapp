@@ -100,16 +100,16 @@ class CreateModal extends Component {
 			</View>
 		</View>
 
-		<ScrollView style={{marginTop: 0, marginBottom: 110}}>
-		<View style={{margin: 10, marginBottom: 10}} >
+		<ScrollView style={{marginTop: 0, marginBottom: 110,}}>
+		<View style={{margin: 10, marginBottom: 10, }} >
 		<TextInput style={{ padding: 20, paddingTop:20, paddingBottom: 20, borderWidth: 2 , height: 250, borderRadius: 15, marginBottom: 5 }} placeholder={'Write something meaningful...'} multiline={true} onChangeText={(something) => { {/* console.log(something); */} this.setState({message: something}) } } />
-			<CheckBox title={'Add Photo/Video'} checked={true} checkedIcon={'plus'} checkedColor={'lightgrey'} onPress={() => {console.log('poppin up'); CameraRoll.getPhotos() } } />
+			<CheckBox title={'Add Photo/Video'} checked={true} checkedIcon={'plus'} checkedColor={'lightgrey'} onPress={() => {console.log('poppin up'); this.getPhotos() } } />
 		</View>
-			<CheckBox title={'Facebook'} checked={this.state.fbChecked} onPress={() => this.setState({fbChecked: !this.state.fbChecked}) } />
-			<CheckBox title={'Instagram'} checked={this.state.igChecked} onPress={() => this.setState({igChecked: !this.state.igChecked}) } />
-			<CheckBox title={'Twitter'} checked={this.state.twChecked} onPress={() => this.setState({twChecked: !this.state.twChecked}) } />
-			<CheckBox title={'Pinterest'} checked={this.state.ptChecked} onPress={() => this.setState({ptChecked: !this.state.ptChecked}) } />
-			<CheckBox title={'YouTube'} checked={this.state.ytChecked} onPress={() => this.setState({ytChecked: !this.state.ytChecked}) } />
+			<CheckBox title={'Facebook'} checked={this.state.fbChecked} onPress={() => this.setState({fbChecked: !this.state.fbChecked}) } checkedColor='#3b5998' />
+			<CheckBox title={'Instagram'} checked={this.state.igChecked} onPress={() => this.setState({igChecked: !this.state.igChecked}) } checkedColor='#ffc838' />
+			<CheckBox title={'Twitter'} checked={this.state.twChecked} onPress={() => this.setState({twChecked: !this.state.twChecked}) } checkedColor='#00aced' />
+			<CheckBox title={'Pinterest'} checked={this.state.ptChecked} onPress={() => this.setState({ptChecked: !this.state.ptChecked}) } checkedColor='#BD081C'/>
+			<CheckBox title={'YouTube'} checked={this.state.ytChecked} onPress={() => this.setState({ytChecked: !this.state.ytChecked}) } checkedColor='#ff0000'/>
 		</ScrollView>
 		
             </View>
