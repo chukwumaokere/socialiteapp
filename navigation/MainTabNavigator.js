@@ -45,7 +45,6 @@ class CreateModal extends Component {
   resetModalState(){
 	if (true == true){
 		this.state.modalVisible = true;
-		console.log(this.componentWillUnmount());
 	}
 	return true;
   }
