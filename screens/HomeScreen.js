@@ -10,11 +10,14 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableHighlight,
   TouchableOpacity,
   View,
   TextInput,
   Dimensions
 } from 'react-native';
+import { Icon } from 'react-native-elements';
+
 var logo = require('../assets/images/icon.png');
 let imageSources = { 
         fb: require('../assets/images/fb.png'),
@@ -32,14 +35,29 @@ let appSources = {
         yt: 'YouTube',
         fa: 'Undefined', //fallback
 }
-
+let iconNames = {
+	fb: 'facebook-square',
+	tw: 'twitter-square',
+	ig: 'instagram',
+	yt: 'youtube-square',
+	pt: 'pinterest-square',
+}
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width;
-
+class PickList extends Component{
+	state = {
+		currentlistview: 'facebook'
+	}
+	openPickerModal(){
+		return (console.log('opening picker modal'));
+	}
+	render(){
+		return(	<View style={styles.appselector}> <Text style={styles.appselectortext} onPress={() => {this.openPickerModal()}}>{this.props.children.toUpperCase()} <View style={{marginTop:-2}}> <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name='facebook-square' size={16} /> </View> </Text> </View>);
+	}
+}
 const All = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-	
 	<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>
         <Tile src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>
         <Tile src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>
@@ -53,8 +71,9 @@ const All = ({ index }) => (
 
 const ByApp = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-   <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 	{/* //foreach... <Tile src={'fb'}> data.contents </Tile> */}
+	<PickList>facebook</PickList>
 	<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>
 	<Tile src={'fb'} datet={'April 5, 2018 11:36 am'}> Phillip is a tool </Tile>
 	<Tile src={'fb'} datet={'April 5, 2018 10:25 am'}> Marsha is pregnant... again </Tile>
@@ -192,6 +211,20 @@ const styles = StyleSheet.create({
 	width:50, 
 	marginTop: height/60, 
 	marginLeft: width/30
+  },
+  appselector: {
+	flex: 1,
+	marginBottom: 10, 
+	marginLeft: 20	
+  },
+  appselectortext: {
+	flex: 1,
+	fontSize: 16,
+	color: '#9e9e9e'
+  },
+  appselectoricon: {
+	flex: 2,
+	color: '#9e9e9e',
   },
   apptitle: {
 	flex: 1,
