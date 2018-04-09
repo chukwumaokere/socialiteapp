@@ -3,8 +3,15 @@
 Open source app for a social media aggregate site built on React-Native.  
 Web version: http://chukwumaokere.com/socialite/  
 Expo URL: https://expo.io/@cokere/socialite  
+  
+Downloads:  
+[v0.0.6](http://chukwumaokere.com/socialite/downloads/socialitev005.tar.gz)
 
-## v.0.0.5 (Alpha)
+## v0.0.6 (Alpha) (latest) [Download Here](http://chukwumaokere.com/socialite/downloads/socialitev005.tar.gz)
+-Now adding download links to version builds. That means less updates but more content on each release  
+-Updated splash screens and published project to expo https://expo.io/@cokere/socialite  
+
+## v0.0.5 (Alpha)
 -Updating logo  
 -Updating Splash page  
 -Updating slogan  
