@@ -1,6 +1,8 @@
 # Socialite (Alpha)
 "All your social media in one place"  
 Open source app for a social media aggregate site built on React-Native.  
+Web version: http://chukwumaokere.com/socialite/  
+Expo URL: https://expo.io/@cokere/socialite  
 
 ## v.0.0.5 (Alpha)
 -Updating logo  
