@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "socialite",
-    "description": "A very interesting project.",
+    "description": "All your social media in one place.",
     "slug": "socialite",
     "privacy": "public",
     "sdkVersion": "26.0.0",
