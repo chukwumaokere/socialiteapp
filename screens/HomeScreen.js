@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 import TopBarNav from 'top-bar-nav';
-
+import Modal from 'react-native-modal';
 import {
   Picker,
   Image,
@@ -16,7 +16,7 @@ import {
   TextInput,
   Dimensions
 } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon, Overlay } from 'react-native-elements';
 
 var logo = require('../assets/images/icon.png');
 let imageSources = { 
@@ -44,17 +44,100 @@ let iconNames = {
 }
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width;
-class PickList extends Component{
-	state = {
-		currentlistview: 'facebook'
+
+class PickerModal extends Component{
+	constructor(props){
+	super(props);
+		this.state={
+			isModalVisible: false,
+			currentlistview: 'facebook',
+			iconName: 'facebook',
+		};
 	}
-	openPickerModal(){
-		return (console.log('opening picker modal'));
+
+	_toggleModal = () => this.setState({isModalVisible: !this.state.isModalVisible});
+	_renderModalContent = () => (
+    	  <View style={styles.modalContent}>
+      	  <Text>Hello!</Text>
+      	  {this._renderButton('Close', () => this.setState({ visibleModal: null }))}
+  	  </View>
+  	);
+	_renderButton = (text, onPress) => (
+	    <TouchableOpacity onPress={onPress}>
+	      <View style={styles.button}>
+		<Text>{text}</Text>
+	      </View>
+	    </TouchableOpacity>
+ 	 );
+	_updateCurrentListName(listviewname){
+		this.setState({currentlistview: listviewname});
 	}
 	render(){
-		return(	<View style={styles.appselector}> <Text style={styles.appselectortext} onPress={() => {this.openPickerModal()}}>{this.props.children.toUpperCase()} <View style={{marginTop:-2}}> <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name='facebook-square' size={16} /> </View> </Text> </View>);
+	var listname = this.props.list;
+        var truename = appSources[listname];
+        if (!truename || truename == ''){
+                var truename = 'Facebook'; //fallback to facebook 
+		this.state.currentlistview = 'Facebook';
+        }
+	var iconName = iconNames[listname];
+	if (iconName == '' || !iconName) iconName = iconNames['fb']; //fallback to Facebook
+	this.state.iconName = iconName;
+        this.state.currentlistview = truename;
+		return(
+			<View style={{flex: 1}}>
+			<View style={styles.appselector}>
+				<Text onPress={this._toggleModal} style={styles.appselectortext}> 
+					{this.state.currentlistview.toUpperCase()} <View style={{marginTop:-2, marginLeft: 3}}> <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name={this.state.iconName} size={16} /> </View> 
+				<View style={{marginTop:0, marginLeft: 3}}> <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name='sort-down' size={16} /> </View> 
+				</Text>
+			</View>
+			<Modal isVisible={this.state.isModalVisible} style={styles.bottomModal, styles.modalContent}>
+			  <View style={{ flex: 1 }}>
+			    <Text style={styles.apppickname}>Facebook</Text>
+				<Text style={styles.apppickname}>Instagram</Text>
+				<Text style={styles.apppickname}>Twitter</Text>
+				<Text style={styles.apppickname}>YouTube</Text>
+				<Text style={styles.apppickname}>Pinterest</Text>
+				{this._renderButton('Close', () => this.setState({ isModalVisible: false }) )}
+			  </View>
+			</Modal>
+		      </View>
+		
+		);
+	}
+
+}
+
+{/*
+class PickList extends Component{
+	constructor(props) {
+   	 super(props);
+
+    	this.state = { isOpen: true };
+  }
+	state = {
+		currentlistview: 'facebook',
+		isVisible: true,
+	}
+	updateCurrentList(listview) {
+		this.setState({currentlistview: listview});
+	}
+	openPickerModal(){
+		return (true);
+	}
+	toggleModal = () => {
+	    this.setState({
+	      isOpen: !this.state.isOpen
+	    });
+	}
+	render(){
+		return(	
+			<View style={styles.appselector}> 
+			<Text style={styles.appselectortext} onPress={() => {console.log('opening modal');}} onClose={this.toggleModal}>{this.props.children.toUpperCase()} <View style={{marginTop:-2}}> <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name='facebook-square' size={16} /> </View> <View style={{marginTop:0}}>     <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name='sort-down' size={16} /> </View> </Text> </View>);
 	}
 }
+*/}
+
 const All = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -73,7 +156,8 @@ const ByApp = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 	{/* //foreach... <Tile src={'fb'}> data.contents </Tile> */}
-	<PickList>facebook</PickList>
+	{/* <PickList>facebook</PickList> */}
+	<PickerModal list={'fb'}></PickerModal>
 	<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>
 	<Tile src={'fb'} datet={'April 5, 2018 11:36 am'}> Phillip is a tool </Tile>
 	<Tile src={'fb'} datet={'April 5, 2018 10:25 am'}> Marsha is pregnant... again </Tile>
@@ -212,6 +296,13 @@ const styles = StyleSheet.create({
 	marginTop: height/60, 
 	marginLeft: width/30
   },
+  apppickname: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontSize: 36,
+    
+  },
   appselector: {
 	flex: 1,
 	marginBottom: 10, 
@@ -225,6 +316,15 @@ const styles = StyleSheet.create({
   appselectoricon: {
 	flex: 2,
 	color: '#9e9e9e',
+  },
+  button: {
+    backgroundColor: 'lightblue',
+    padding: 12,
+    margin: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
   },
   apptitle: {
 	flex: 1,
@@ -248,6 +348,18 @@ const styles = StyleSheet.create({
 	flexDirection: 'column',
 	marginTop: height/27,
 	marginLeft: width/35,
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  bottomModal: {
+    justifyContent: 'flex-end',
+    margin: 0,
   },
   tilea: {
 	backgroundColor: 'white',
