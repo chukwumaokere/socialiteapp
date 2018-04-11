@@ -8,6 +8,9 @@ Open source app for a social media aggregate site built on React-Native.
 ### [v0.0.6](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
+### v5.3.1 (Alpha) (latest)   
+-Fixed bug with sort function that caused warning by setting state using componentDidMount()   
+
 ### v5.3.0 (Alpha) (latest)
 -Added Sort function in the By App screen  
 
