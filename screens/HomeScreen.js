@@ -118,7 +118,6 @@ class Tile extends Component {
   }
 
   const srcPath = imageSources[app];
-console.log(srcPath);
   const appName = appSources[app];
 	return (
 		<View style={styles.tilea}>

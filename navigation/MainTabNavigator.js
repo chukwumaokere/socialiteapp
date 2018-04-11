@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Platform, 
+	Alert,
 	CameraRoll,
 	TouchableWithoutFeedback, 
 	View,
@@ -17,7 +18,7 @@ import { CheckBox } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
 import Colors from '../constants/Colors';
-
+import { ImagePicker} from 'expo';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -34,6 +35,7 @@ class CreateModal extends Component {
     ptChecked: false,
     message: null,
     photos: [],
+    image: null,
   };
 
   setModalVisible(visible) {
@@ -58,7 +60,23 @@ class CreateModal extends Component {
     const {navigate} = this.props.navigation
 	navigate('HomeScreen');
   }
+  _pickImage = async () => {
+    console.log('how');
+    this.setState({modalVisible: false});
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+   console.log(result);
+   console.log('hello');
+
+    if (!result.cancelled) {
+      //Alert.alert("Image Selected!", result.uri); 
+      this.setState({ image: result.uri });
+    }
+  };
   render() {
+	let { image } = this.state;
 	const { params } = this.props.navigation.state;
 	var show = params ? params.show : null;
 	const prevSc = params ? params.prevScene : null;
@@ -102,7 +120,7 @@ class CreateModal extends Component {
 		<ScrollView style={{marginTop: 0, marginBottom: 110,}}>
 		<View style={{margin: 10, marginBottom: 10, }} >
 		<TextInput style={{ padding: 20, paddingTop:20, paddingBottom: 20, borderWidth: 2 , height: 250, borderRadius: 15, marginBottom: 5 }} placeholder={'Write something meaningful...'} multiline={true} onChangeText={(something) => { {/* console.log(something); */} this.setState({message: something}) } } />
-			<CheckBox title={'Add Photo/Video'} checked={true} checkedIcon={'plus'} checkedColor={'lightgrey'} onPress={() => {console.log('poppin up'); this.getPhotos() } } />
+			<CheckBox title={'Add Photo/Video'} checked={true} checkedIcon={'plus'} checkedColor={'lightgrey'} onPress={this._pickImage} />
 		</View>
 			<CheckBox title={'Facebook'} checked={this.state.fbChecked} onPress={() => this.setState({fbChecked: !this.state.fbChecked}) } checkedColor='#3b5998' />
 			<CheckBox title={'Instagram'} checked={this.state.igChecked} onPress={() => this.setState({igChecked: !this.state.igChecked}) } checkedColor='#ffc838' />
