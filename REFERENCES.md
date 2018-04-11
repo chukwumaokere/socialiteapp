@@ -8,6 +8,8 @@ https://snack.expo.io/BJOB36c-b
 
 https://react-native-training.github.io/react-native-elements/docs/overlay.html  
 
+https://github.com/react-native-training/react-native-elements   
+
 https://www.youtube.com/watch?v=rT8ZV7W3Ybc  
 
 https://facebook.github.io/react-native/docs/image.html  
