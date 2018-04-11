@@ -8,7 +8,10 @@ Open source app for a social media aggregate site built on React-Native.
 ### [v0.0.6](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
-### v5.2.4 (Alpha) (latest)
+### v5.3.0 (Alpha) (latest)
+-Added Sort function in the By App screen  
+
+### v5.2.4 (Alpha) 
 -Added style to the "Create Post" modal  
 -Added function to replace image  
 -Added function to remove image  
