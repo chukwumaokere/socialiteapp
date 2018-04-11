@@ -17,16 +17,6 @@ import {
   Dimensions
 } from 'react-native';
 import { Icon, Overlay } from 'react-native-elements';
-{/*
-let postObj = [
-<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>,
-<Tile src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>,
-<Tile src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>,
-<Tile src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>,
-<Tile src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>,
-<Tile> This tile comes from nowhere, so theres no icon </Tile>,
-<Tile> This tile comes from nowhere, so theres no icon </Tile>,
-] */}
 
 var logo = require('../assets/images/icon.png');
 let imageSources = { 
@@ -113,78 +103,6 @@ class PickerModal extends Component{
 
 }
 
-{/*
-class PickList extends Component{
-	constructor(props) {
-   	 super(props);
-
-    	this.state = { isOpen: true };
-  }
-	state = {
-		currentlistview: 'facebook',
-		isVisible: true,
-	}
-	updateCurrentList(listview) {
-		this.setState({currentlistview: listview});
-	}
-	openPickerModal(){
-		return (true);
-	}
-	toggleModal = () => {
-	    this.setState({
-	      isOpen: !this.state.isOpen
-	    });
-	}
-	render(){
-		return(	
-			<View style={styles.appselector}> 
-			<Text style={styles.appselectortext} onPress={() => {console.log('opening modal');}} onClose={this.toggleModal}>{this.props.children.toUpperCase()} <View style={{marginTop:-2}}> <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name='facebook-square' size={16} /> </View> <View style={{marginTop:0}}>     <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name='sort-down' size={16} /> </View> </Text> </View>);
-	}
-}
-*/}
-
-const All = ({ index }) => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-	<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>
-        <Tile src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>
-        <Tile src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>
-        <Tile src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>
-        <Tile src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>
-        <Tile> This tile comes from nowhere, so theres no icon </Tile>
-        <Tile> This tile comes from nowhere, so theres no icon </Tile>
-    </ScrollView>
-  </View>
-);
-
-const ByApp = ({ index }) => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-	{/* //foreach... <Tile src={'fb'}> data.contents </Tile> */}
-	{/* <PickList>facebook</PickList> */}
-	<PickerModal></PickerModal>
-	<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>
-	<Tile src={'fb'} datet={'April 5, 2018 11:36 am'}> Phillip is a tool </Tile>
-	<Tile src={'fb'} datet={'April 5, 2018 10:25 am'}> Marsha is pregnant... again </Tile>
-	<Tile src={'fb'} datet={'April 4, 2018 10:24 pm'}> Cindy is engaged AGAIN.. </Tile>
-	<Tile src={'fb'} datet={'April 4, 2018 09:34 pm'}> Sharkeisha is Sharkeisha </Tile>
-	<Tile src={'fb'} datet={'April 5, 2018 8:37 pm'}> This is just an inspirational line, inspiring you to... be inspirational </Tile>
-    </ScrollView>	
-  </View>
-);
-
-const ROUTES = {
-  All,
-  ByApp
-  // ideally you would have a ROUTES object with multiple React component scenes
-};
-
-const ROUTESTACK = [
-//  { image: require('../assets/images/iconimg.png'), title: 'Scene' },
-  { label: 'All', title: 'All' },
-  { label: 'By App', title: 'ByApp' }, // label is what you see in the top bar // title is just the name of the Component being rendered.  See the renderScene property below
-];
-
 //Declaration of Tile Class:
 class Tile extends Component {
   render() {
@@ -200,6 +118,7 @@ class Tile extends Component {
   }
 
   const srcPath = imageSources[app];
+console.log(srcPath);
   const appName = appSources[app];
 	return (
 		<View style={styles.tilea}>
@@ -216,6 +135,54 @@ class Tile extends Component {
 	)
   }
 }
+
+const postObj = [ 
+	<Tile key={1} src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>,
+	<Tile key={2} src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>,
+	<Tile key={3} src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>,
+	<Tile key={4} src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>,
+	<Tile key={5} src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>,
+	<Tile key={7}> This tile comes from nowhere, so theres no icon </Tile>,
+	<Tile key={8}> This tile comes from nowhere, so theres no icon </Tile>
+]
+const postObjFb = [
+	<Tile key={1} src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>,
+	<Tile key={2} src={'fb'} datet={'April 5, 2018 11:36 am'}> Phillip is a tool </Tile>,
+	<Tile key={3} src={'fb'} datet={'April 5, 2018 10:25 am'}> Marsha is pregnant... again </Tile>,
+	<Tile key={4} src={'fb'} datet={'April 4, 2018 10:24 pm'}> Cindy is engaged AGAIN.. </Tile>, 
+	<Tile key={5} src={'fb'} datet={'April 4, 2018 09:34 pm'}> Sharkeisha is Sharkeisha </Tile>,
+	<Tile key={6} src={'fb'} datet={'April 5, 2018 8:37 pm'}> This is just an inspirational line, inspiring you to... be inspirational </Tile>,
+]
+
+const All = ({ index }) => (
+  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> 
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+	{postObj}
+    </ScrollView>
+  </View>
+);
+
+const ByApp = ({ index }) => (
+  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        {/* //foreach... <Tile src={'fb'}> data.contents </Tile> */}
+        <PickerModal></PickerModal>
+	{postObjFb}
+    </ScrollView>
+  </View>
+);
+
+const ROUTES = {
+  All,
+  ByApp
+  // ideally you would have a ROUTES object with multiple React component scenes
+};
+
+const ROUTESTACK = [
+//  { image: require('../assets/images/iconimg.png'), title: 'Scene' },
+  { label: 'All', title: 'All' },
+  { label: 'By App', title: 'ByApp' }, // label is what you see in the top bar // title is just the name of the Component being rendered.  See the renderScene property below
+]; 
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
