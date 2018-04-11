@@ -8,7 +8,13 @@ Open source app for a social media aggregate site built on React-Native.
 ### [v0.0.6](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
-### v0.0.6 (Alpha) (latest) [Download Here](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz)
+### v0.0.7 (Alpha) (latest)
+-Added pop up modal for filter on By Apps screen
+-Added text for filter
+-Added Icon for filter
+-Added switching function for filter
+
+### v0.0.6 (Alpha) [Download Here](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz)
 -Now adding download links to version builds. That means less updates but more content on each release  
 -Updated splash screens and published project to expo https://expo.io/@cokere/socialite  
 

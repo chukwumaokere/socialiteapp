@@ -18,6 +18,8 @@ https://facebook.github.io/react-native/docs/components-and-apis.html
 
 https://www.npmjs.com/package/react-native-customized-image-picker  
 
+https://github.com/beefe/react-native-picker  
+
 https://facebook.github.io/react-native/docs/modal.html  
 
 https://facebook.github.io/react-native/docs/text.html  
