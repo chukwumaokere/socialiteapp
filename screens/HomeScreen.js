@@ -42,10 +42,18 @@ let iconNames = {
 	youtube: 'youtube-square',
 	pinterest: 'pinterest-square',
 }
+let sourceToFilter = {
+	Facebook: 'fb',
+	Twitter: 'tw',
+	Instagram: 'ig',
+	Pinterest: 'pt',
+	YouTube: 'yt',
+	Undefined: 'fa',
+}
 
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width;
-
+/*
 class PickerModal extends Component{
 	constructor(props){
 	super(props);
@@ -88,7 +96,7 @@ class PickerModal extends Component{
 		return(
 			<View style={{flex: 1}}>
 			<View style={styles.appselector}>
-				<Text onPress={this._toggleModal} style={styles.appselectortext}> 
+				<Text onPress={this._toggleModal} style={styles.appselectortext} filterBy={sourceToFilter[this.state.currentlistview]}> 
 					{this.state.currentlistview.toUpperCase()} <View style={{marginTop:-2, marginLeft: 3}}> <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name={this.state.iconName} size={16} /> </View> 
 				<View style={{marginTop:0, marginLeft: 3}}> <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name='sort-down' size={16} /> </View> 
 				</Text>
@@ -102,6 +110,7 @@ class PickerModal extends Component{
 	}
 
 }
+*/
 
 //Declaration of Tile Class:
 class Tile extends Component {
@@ -136,22 +145,104 @@ class Tile extends Component {
 }
 
 const postObj = [ 
-	<Tile key={1} src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>,
+	<Tile key={0} src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>,
+	<Tile key={1} src={'fb'} datet={'April 5, 2018 8:37 pm'}> This is just an inspirational line, inspiring you to... be inspirational </Tile>,
 	<Tile key={2} src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>,
-	<Tile key={3} src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>,
-	<Tile key={4} src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>,
-	<Tile key={5} src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>,
-	<Tile key={7}> This tile comes from nowhere, so theres no icon </Tile>,
-	<Tile key={8}> This tile comes from nowhere, so theres no icon </Tile>
+	<Tile key={3} src={'fb'} datet={'April 5, 2018 11:36 am'}> Phillip is a tool </Tile>,
+	<Tile key={4} src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>,
+	<Tile key={5} src={'fb'} datet={'April 5, 2018 10:25 am'}> Marsha is pregnant... again </Tile>,
+	<Tile key={6} src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>,
+	<Tile key={7} src={'fb'} datet={'April 4, 2018 10:24 pm'}> Cindy is engaged AGAIN.. </Tile>,
+	<Tile key={8} src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>,
+	<Tile key={9} src={'fb'} datet={'April 4, 2018 09:34 pm'}> Sharkeisha is Sharkeisha </Tile>,
+	
+	<Tile key={10}> This tile comes from nowhere, so theres no icon </Tile>,
+	<Tile key={11}> This tile comes from nowhere, so theres no icon </Tile>
 ]
-const postObjFb = [
-	<Tile key={1} src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>,
-	<Tile key={2} src={'fb'} datet={'April 5, 2018 11:36 am'}> Phillip is a tool </Tile>,
-	<Tile key={3} src={'fb'} datet={'April 5, 2018 10:25 am'}> Marsha is pregnant... again </Tile>,
-	<Tile key={4} src={'fb'} datet={'April 4, 2018 10:24 pm'}> Cindy is engaged AGAIN.. </Tile>, 
-	<Tile key={5} src={'fb'} datet={'April 4, 2018 09:34 pm'}> Sharkeisha is Sharkeisha </Tile>,
-	<Tile key={6} src={'fb'} datet={'April 5, 2018 8:37 pm'}> This is just an inspirational line, inspiring you to... be inspirational </Tile>,
-]
+
+class PickerModal extends Component{
+        constructor(props){
+        super(props);
+                this.state={
+                        isModalVisible: false,
+                        currentlistview: 'Facebook', //default to facebook
+                        iconName: 'facebook-square', //default to facebook
+			initialArray: postObj,
+			filteredArray: [],
+                };
+        }
+
+        //Functions - start
+        _toggleModal = () => this.setState({isModalVisible: !this.state.isModalVisible});
+        _renderModalContent = () => (
+          <View style={styles.modalContent}>
+                <Text style={styles.sorty}>SORT POSTS BY</Text>
+                <View style={styles.horizontalbar} />
+                <Text style={styles.apppickname} onPress={() => {this._updateCurrentListView('facebook'); this.setState({ isModalVisible: false }); this._filterList('Facebook')}}><View style={{marginTop:-2, marginLeft: 3}}><Icon style={styles.appselectoricon} color='#3b5998' type='font-awesome' name={'facebook-square'} size={18} /></View> Facebook</Text>
+                <Text style={styles.apppickname} onPress={() => {this._updateCurrentListView('instagram'); this.setState({ isModalVisible: false }); this._filterList('Instagram')}}><View style={{marginTop:-2, marginLeft: 3}}><Icon style={styles.appselectoricon} color='#ffc838' type='font-awesome' name={'instagram'} size={18} /></View> Instagram</Text>
+                <Text style={styles.apppickname} onPress={() => {this._updateCurrentListView('twitter'); this.setState({ isModalVisible: false }); this._filterList('Twitter')}}><View style={{marginTop:-2, marginLeft: 3}}><Icon style={styles.appselectoricon} color='#00aced' type='font-awesome' name={'twitter-square'} size={18} /></View> Twitter</Text>
+                <Text style={styles.apppickname} onPress={() => {this._updateCurrentListView('youtube'); this.setState({ isModalVisible: false }); this._filterList('YouTube')}}><View style={{marginTop:-2, marginLeft: 3}}><Icon style={styles.appselectoricon} color='#ff0000' type='font-awesome' name={'youtube-square'} size={18} /></View> YouTube</Text>
+                <Text style={styles.apppickname} onPress={() => {this._updateCurrentListView('pinterest'); this.setState({ isModalVisible: false }); this._filterList('Pinterest') }}><View style={{marginTop:-2, marginLeft: 3}}><Icon style={styles.appselectoricon} color='#bd081c' type='font-awesome' name={'pinterest-square'} size={18} /></View> Pinterest</Text>
+                {this._renderButton('CLOSE', () => this.setState({ isModalVisible: false }) )}
+          </View>
+        );
+        _renderButton = (text, onPress) => (
+            <TouchableOpacity onPress={onPress}>
+              <View style={styles.button}>
+                <Text style={{fontSize: 20, color: 'white',}}>{text}</Text>
+              </View>
+            </TouchableOpacity>
+         );
+        _updateCurrentListView(listviewname){
+                this.setState({currentlistview: listviewname});
+                this.setState({iconName: iconNames[listviewname]});
+
+        }
+	_filterList(srcName){
+		const newArray = [];
+		var ogName = srcName;
+		var srcName = sourceToFilter[srcName];
+		console.log('changing to ' + ogName);
+		var arrayStart = this.state.initialArray;
+	//		console.log(arrayStart);
+		arrayStart.forEach(function(tile){
+			if(tile.props.src == srcName){
+				newArray.push(tile);
+			}
+			//console.log(tile);
+		});
+		console.log(newArray);
+
+		this.setState({filteredArray: newArray});
+		//run foreach here
+		// const newArray = [];
+		// newArray.push(all those elements);
+		//this.setState({postArray: newArray});
+	}
+        //Functions - end
+
+        render(){
+		if (this.state.filteredArray.length == 0 || this.state.filteredArray === undefined){
+			this._filterList('Facebook');
+		}
+                return(
+                        <View style={{flex: 1}}>
+                        <View style={styles.appselector}>
+                                <Text onPress={this._toggleModal} style={styles.appselectortext} filterBy={sourceToFilter[this.state.currentlistview]}>
+                                        {this.state.currentlistview.toUpperCase()} <View style={{marginTop:-2, marginLeft: 3}}> <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name={this.state.iconName} size={16} /> </View>
+                                <View style={{marginTop:0, marginLeft: 3}}> <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name='sort-down' size={16} /> </View>
+                                </Text>
+                        </View>
+                        <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal} onSwipe={() => this.setState({ isModalVisible: false })} swipeDirection="down" onBackdropPress={() => this.setState({ isModalVisible: false })}>
+                                {this._renderModalContent()}
+                        </Modal>
+			 	{this.state.filteredArray}
+                      </View>
+
+                );
+        }
+
+}
 
 const All = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> 
@@ -161,12 +252,16 @@ const All = ({ index }) => (
   </View>
 );
 
+filterBy = (filtername, originalArray) => {
+	var filterby = filtername;	
+	var originalAry = originalArray;
+}
+
 const ByApp = ({ index }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         {/* //foreach... <Tile src={'fb'}> data.contents </Tile> */}
         <PickerModal></PickerModal>
-	{postObjFb}
     </ScrollView>
   </View>
 );
