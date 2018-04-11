@@ -8,7 +8,11 @@ Open source app for a social media aggregate site built on React-Native.
 ### [v0.0.6](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
-### v0.0.8 (Alpha) (latest)
+### v0.1.0 (Alpha) (latest)  
+-Changed how the tiles are rendered. Using arrays of tile compotenents for future code iteration of API data and filter   
+-Added keys to prevent warning  
+
+### v0.0.8 (Alpha) 
 -Finished styling the sort by modal   
 -Added icons   
 -Added color to the buttons   
