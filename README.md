@@ -8,11 +8,19 @@ Open source app for a social media aggregate site built on React-Native.
 ### [v0.0.6](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
-### v0.0.7 (Alpha) (latest)
--Added pop up modal for filter on By Apps screen
--Added text for filter
--Added Icon for filter
--Added switching function for filter
+### v0.0.8 (Alpha) (latest)
+-Finished styling the sort by modal   
+-Added icons   
+-Added color to the buttons   
+-Colored icons based on company color codes   
+-Colored close button to match theme    
+-Close modal by clicking close, swiping modal down, or clicking gray area   
+
+### v0.0.7 (Alpha)
+-Added pop up modal for filter on By Apps screen  
+-Added text for filter  
+-Added Icon for filter  
+-Added switching function for filter  
 
 ### v0.0.6 (Alpha) [Download Here](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz)
 -Now adding download links to version builds. That means less updates but more content on each release  
