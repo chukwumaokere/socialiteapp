@@ -17,7 +17,17 @@ import {
   Dimensions
 } from 'react-native';
 import { Icon, Overlay } from 'react-native-elements';
-
+{/*
+let postObj = {
+y: {'<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>'},
+t: {'<Tile src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>'},
+b: {'<Tile src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>'},
+n: {'<Tile src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>'},
+a: {'<Tile src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>'},
+d: {'<Tile> This tile comes from nowhere, so theres no icon </Tile>'},
+c: {'<Tile> This tile comes from nowhere, so theres no icon </Tile>'},
+}
+*/}
 var logo = require('../assets/images/icon.png');
 let imageSources = { 
         fb: require('../assets/images/fb.png'),
@@ -36,12 +46,13 @@ let appSources = {
         fa: 'Undefined', //fallback
 }
 let iconNames = {
-	fb: 'facebook-square',
-	tw: 'twitter-square',
-	ig: 'instagram',
-	yt: 'youtube-square',
-	pt: 'pinterest-square',
+	facebook: 'facebook-square',
+	twitter: 'twitter-square',
+	instagram: 'instagram',
+	youtube: 'youtube-square',
+	pinterest: 'pinterest-square',
 }
+
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width;
 
@@ -50,39 +61,40 @@ class PickerModal extends Component{
 	super(props);
 		this.state={
 			isModalVisible: false,
-			currentlistview: 'facebook',
-			iconName: 'facebook',
-		};
+			currentlistview: 'Facebook', //default to facebook
+			iconName: 'facebook-square', //default to facebook
+		};	
 	}
 
+	//Functions - start
 	_toggleModal = () => this.setState({isModalVisible: !this.state.isModalVisible});
 	_renderModalContent = () => (
     	  <View style={styles.modalContent}>
-      	  <Text>Hello!</Text>
-      	  {this._renderButton('Close', () => this.setState({ visibleModal: null }))}
+		<Text style={styles.sorty}>SORT POSTS BY</Text>
+		<View style={styles.horizontalbar} />
+		<Text style={styles.apppickname} onPress={() => {this._updateCurrentListView('facebook'); this.setState({ isModalVisible: false }); console.log('changing to: '+this.state.currentlistview)}}><View style={{marginTop:-2, marginLeft: 3}}><Icon style={styles.appselectoricon} color='#3b5998' type='font-awesome' name={'facebook-square'} size={18} /></View> FACEBOOK</Text>
+		<Text style={styles.apppickname} onPress={() => {this._updateCurrentListView('instagram'); this.setState({ isModalVisible: false }); console.log('changing to: '+this.state.currentlistview)}}><View style={{marginTop:-2, marginLeft: 3}}><Icon style={styles.appselectoricon} color='#ffc838' type='font-awesome' name={'instagram'} size={18} /></View> INSTAGRAM</Text>
+		<Text style={styles.apppickname} onPress={() => {this._updateCurrentListView('twitter'); this.setState({ isModalVisible: false }); console.log('changing to: '+this.state.currentlistview)}}><View style={{marginTop:-2, marginLeft: 3}}><Icon style={styles.appselectoricon} color='#00aced' type='font-awesome' name={'twitter-square'} size={18} /></View> TWITTER</Text>
+		<Text style={styles.apppickname} onPress={() => {this._updateCurrentListView('youtube'); this.setState({ isModalVisible: false }); console.log('changing to: '+this.state.currentlistview)}}><View style={{marginTop:-2, marginLeft: 3}}><Icon style={styles.appselectoricon} color='#ff0000' type='font-awesome' name={'youtube-square'} size={18} /></View> YOUTUBE</Text>
+		<Text style={styles.apppickname} onPress={() => {this._updateCurrentListView('pinterest'); this.setState({ isModalVisible: false }); console.log('changing to: '+this.state.currentlistview)}}><View style={{marginTop:-2, marginLeft: 3}}><Icon style={styles.appselectoricon} color='#bd081c' type='font-awesome' name={'pinterest-square'} size={18} /></View> PINTEREST</Text>
+		{this._renderButton('CLOSE', () => this.setState({ isModalVisible: false }) )}
   	  </View>
   	);
 	_renderButton = (text, onPress) => (
 	    <TouchableOpacity onPress={onPress}>
 	      <View style={styles.button}>
-		<Text>{text}</Text>
+		<Text style={{fontSize: 20, color: 'white',}}>{text}</Text>
 	      </View>
 	    </TouchableOpacity>
  	 );
-	_updateCurrentListName(listviewname){
+	_updateCurrentListView(listviewname){
 		this.setState({currentlistview: listviewname});
+		this.setState({iconName: iconNames[listviewname]});
+		
 	}
+	//Functions - end
+
 	render(){
-	var listname = this.props.list;
-        var truename = appSources[listname];
-        if (!truename || truename == ''){
-                var truename = 'Facebook'; //fallback to facebook 
-		this.state.currentlistview = 'Facebook';
-        }
-	var iconName = iconNames[listname];
-	if (iconName == '' || !iconName) iconName = iconNames['fb']; //fallback to Facebook
-	this.state.iconName = iconName;
-        this.state.currentlistview = truename;
 		return(
 			<View style={{flex: 1}}>
 			<View style={styles.appselector}>
@@ -91,15 +103,8 @@ class PickerModal extends Component{
 				<View style={{marginTop:0, marginLeft: 3}}> <Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name='sort-down' size={16} /> </View> 
 				</Text>
 			</View>
-			<Modal isVisible={this.state.isModalVisible} style={styles.bottomModal, styles.modalContent}>
-			  <View style={{ flex: 1 }}>
-			    <Text style={styles.apppickname}>Facebook</Text>
-				<Text style={styles.apppickname}>Instagram</Text>
-				<Text style={styles.apppickname}>Twitter</Text>
-				<Text style={styles.apppickname}>YouTube</Text>
-				<Text style={styles.apppickname}>Pinterest</Text>
-				{this._renderButton('Close', () => this.setState({ isModalVisible: false }) )}
-			  </View>
+			<Modal isVisible={this.state.isModalVisible} style={styles.bottomModal} onSwipe={() => this.setState({ isModalVisible: false })} swipeDirection="down" onBackdropPress={() => this.setState({ isModalVisible: false })}>
+				{this._renderModalContent()}
 			</Modal>
 		      </View>
 		
@@ -157,7 +162,7 @@ const ByApp = ({ index }) => (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 	{/* //foreach... <Tile src={'fb'}> data.contents </Tile> */}
 	{/* <PickList>facebook</PickList> */}
-	<PickerModal list={'fb'}></PickerModal>
+	<PickerModal></PickerModal>
 	<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>
 	<Tile src={'fb'} datet={'April 5, 2018 11:36 am'}> Phillip is a tool </Tile>
 	<Tile src={'fb'} datet={'April 5, 2018 10:25 am'}> Marsha is pregnant... again </Tile>
@@ -299,9 +304,8 @@ const styles = StyleSheet.create({
   apppickname: {
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center',
-    fontSize: 36,
-    
+    fontSize: 22,
+    marginBottom: 10,
   },
   appselector: {
 	flex: 1,
@@ -318,11 +322,12 @@ const styles = StyleSheet.create({
 	color: '#9e9e9e',
   },
   button: {
-    backgroundColor: 'lightblue',
+    backgroundColor: '#e52f37',
     padding: 12,
-    margin: 16,
+    margin: 1,
+    marginTop: 8,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center', 
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
@@ -338,6 +343,14 @@ const styles = StyleSheet.create({
 	marginTop: height/60,
 	marginLeft: width/45,
   },
+  horizontalbar: {
+	borderBottomWidth: 1,
+	marginBottom: 10 
+  },
+  sorty: {
+	fontSize: 16,
+	marginBottom: 10,
+  },
   postdate: {
 	flex: 2,
 	fontWeight: '300',
@@ -352,14 +365,14 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: 'white',
     padding: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
+    margin: 10,
+    marginBottom: 0,
   },
   bottomModal: {
     justifyContent: 'flex-end',
-    margin: 0,
+    margin: 2,
   },
   tilea: {
 	backgroundColor: 'white',
