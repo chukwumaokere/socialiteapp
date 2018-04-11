@@ -42,7 +42,7 @@ class CreateModal extends Component {
     this.setState({modalVisible: visible});
   }
   toggleModal = () => {
-	this.setState({modalVisible: !this.state.Visible});
+	this.setState({modalVisible: !this.state.Visible, image: null, message: null});
   }
   resetModalState(){
 	if (true == true){
@@ -65,7 +65,7 @@ class CreateModal extends Component {
     this.setState({modalVisible: false});
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      aspect: [4, 3],
+      
     });
    console.log(result);
    console.log('hello');
@@ -74,17 +74,45 @@ class CreateModal extends Component {
       //Alert.alert("Image Selected!", result.uri); 
       this.setState({ image: result.uri });
     }
+    if (result.cancelled){
+	this.setState({modalVisible: true});
+    }
   };
+  clearImage = () => {
+	this.setState({image: null});
+  }
   render() {
 	let { image } = this.state;
 	const { params } = this.props.navigation.state;
 	var show = params ? params.show : null;
 	const prevSc = params ? params.prevScene : null;
+
 	if (this.state.modalVisible == false){
 		var show = true;
 		var vis = true;
 		return(this.resetModalState())
 	}else{
+		let imgPrev;
+	     if (this.state.image == null){
+                var imgText = 'Add Photo/Video';
+                var imgIcon = 'plus';
+                //var t = '';
+                //var potImgProps = '';
+                imgPrev = []; 
+        }else{
+                var imgText = 'Replace Photo/Video';
+                var imgIcon = 'minus';
+                //var t = 'Image Preview';
+                //var potImgProps = 'source={this.state.image}';
+                imgPrev = [<Text key={1} style={styles.imgprevtext}>Image Preview:</Text>,
+				<View key={2} style={{flex: 1, flexDirection: 'row'}}>
+                                <Image style={{flex:4}} style={styles.imgprev} source={{uri:this.state.image}}/>
+				<View style={{flex: 1, justifyContent:'center', alignItems: 'center' }}>
+				<CheckBox size={18} title={'Remove Image'} checked={true} checkedIcon={'minus'} checkedColor={'#e52f37'} onPress={this.clearImage} />
+				</View>
+				</View>,
+                                ];  
+        }   
 		var vis = true;
     return (
       <View style={{marginTop: 0}}>
@@ -101,14 +129,14 @@ class CreateModal extends Component {
           >
           <View style={{marginTop: 25, marginBottom: 25}}>
             <View>
-		<View style={{backgroundColor: 'white', flex: 0, flexDirection: 'row', paddingLeft: 0, paddingRight: 0, marginTop: 20, marginBottom: 0}}>
+		<View style={{backgroundColor: 'white', flex: 0, flexDirection: 'row', paddingLeft: 0, paddingRight: 0, marginTop: 15, marginBottom: 0, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#9e9e9e'}}>
 			<View style={styles.container, {flex: 3}}>
-				<TouchableHighlight style={styles.button} onPress={() => {this.setModalVisible(false); this.setState({fbChecked: false, igChecked: false, twChecked: false, ptChecked: false, ytChecked: false}); this.props.navigation.navigate(prevSc); } }>	
+				<TouchableHighlight style={styles.button} onPress={() => {this.setModalVisible(false); this.setState({fbChecked: false, igChecked: false, twChecked: false, ptChecked: false, ytChecked: false, message: null, image: null}); this.props.navigation.navigate(prevSc); } }>	
 					<Text style={{fontSize: 18}}>Cancel</Text>
 				</TouchableHighlight>
 			</View>
 
-			<Text style={{flex: 6, fontWeight: 'bold', fontSize: 30, textAlign: 'center', marginTop: 0}}>Create Post</Text>
+			<Text style={{flex: 6, fontWeight: '600', fontSize: 30, textAlign: 'center', marginTop: 0}}>Create Post</Text>
 
 			<View style={styles.container, {flex: 3}}>
 				<TouchableHighlight style={styles.button} onPress={() => { console.log('sending'); console.log(this.state) } }> 
@@ -119,8 +147,9 @@ class CreateModal extends Component {
 
 		<ScrollView style={{marginTop: 0, marginBottom: 110,}}>
 		<View style={{margin: 10, marginBottom: 10, }} >
-		<TextInput style={{ padding: 20, paddingTop:20, paddingBottom: 20, borderWidth: 2 , height: 250, borderRadius: 15, marginBottom: 5 }} placeholder={'Write something meaningful...'} multiline={true} onChangeText={(something) => { {/* console.log(something); */} this.setState({message: something}) } } />
-			<CheckBox title={'Add Photo/Video'} checked={true} checkedIcon={'plus'} checkedColor={'lightgrey'} onPress={this._pickImage} />
+		<TextInput style={{ padding: 20, paddingTop:20, paddingBottom: 20, borderWidth: 1, borderColor: 'black', height: 250, borderRadius: 15, marginBottom: 8 }} value={this.state.message} placeholder={'Write something meaningful...'} multiline={true} onChangeText={(something) => {this.setState({message: something})} } />
+			<CheckBox title={imgText} checked={true} checkedIcon={imgIcon} checkedColor={'lightgrey'} onPress={this._pickImage} />
+			{imgPrev}
 		</View>
 			<CheckBox title={'Facebook'} checked={this.state.fbChecked} onPress={() => this.setState({fbChecked: !this.state.fbChecked}) } checkedColor='#3b5998' />
 			<CheckBox title={'Instagram'} checked={this.state.igChecked} onPress={() => this.setState({igChecked: !this.state.igChecked}) } checkedColor='#ffc838' />
@@ -154,6 +183,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFF',
     padding: 10
+  },
+  imgprevtext:{
+	marginTop: 5,
+	marginBottom: 5,
+  },
+  imgprev: {
+	height: 200,
+	width: 200,
+	resizeMode: 'contain',
   },
 
 });
@@ -193,7 +231,7 @@ export default TabNavigator(
             name={iconName}
             size={28}
             style={{ marginBottom: -3, width: 25 }}
-            color={focused ? 'tomato' : Colors.tabIconDefault}
+            color={focused ? '#e52f37' : Colors.tabIconDefault}
           />
         );
       },
