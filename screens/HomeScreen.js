@@ -157,12 +157,13 @@ class PickerModal extends Component{
 
 		this.setState({filteredArray: newArray});
 	}
+
+	componentDidMount(){
+		this._filterList('Facebook');
+	}
         //Functions - end
 
         render(){
-		if (this.state.filteredArray.length == 0 || this.state.filteredArray === undefined){
-			this._filterList('Facebook');
-		}
                 return(
                         <View style={{flex: 1}}>
                         <View style={styles.appselector}>
