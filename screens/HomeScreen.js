@@ -18,16 +18,16 @@ import {
 } from 'react-native';
 import { Icon, Overlay } from 'react-native-elements';
 {/*
-let postObj = {
-y: {'<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>'},
-t: {'<Tile src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>'},
-b: {'<Tile src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>'},
-n: {'<Tile src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>'},
-a: {'<Tile src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>'},
-d: {'<Tile> This tile comes from nowhere, so theres no icon </Tile>'},
-c: {'<Tile> This tile comes from nowhere, so theres no icon </Tile>'},
-}
-*/}
+let postObj = [
+<Tile src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>,
+<Tile src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>,
+<Tile src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>,
+<Tile src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>,
+<Tile src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>,
+<Tile> This tile comes from nowhere, so theres no icon </Tile>,
+<Tile> This tile comes from nowhere, so theres no icon </Tile>,
+] */}
+
 var logo = require('../assets/images/icon.png');
 let imageSources = { 
         fb: require('../assets/images/fb.png'),
