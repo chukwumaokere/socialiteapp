@@ -8,7 +8,7 @@ Open source app for a social media aggregate site built on React-Native.
 ### [v0.0.6](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
-### v0.2.0 (Alpha) (latest)
+### v5.2.4 (Alpha) (latest)
 -Added style to the "Create Post" modal  
 -Added function to replace image  
 -Added function to remove image  
@@ -19,11 +19,12 @@ Open source app for a social media aggregate site built on React-Native.
 -Edited icons to show as socialite color scheme red  
 -Need to style create post screen  
 -Need to add save for later button on Create post modal  
-### v0.1.0 (Alpha) 
+
+### v4.1.0 (Alpha) 
 -Changed how the tiles are rendered. Using arrays of tile compotenents for future code iteration of API data and filter   
 -Added keys to prevent warning  
 
-### v0.0.8 (Alpha) 
+### v3.4.0 (Alpha) 
 -Finished styling the sort by modal   
 -Added icons   
 -Added color to the buttons   
@@ -31,22 +32,22 @@ Open source app for a social media aggregate site built on React-Native.
 -Colored close button to match theme    
 -Close modal by clicking close, swiping modal down, or clicking gray area   
 
-### v0.0.7 (Alpha)
+### v3.3.0 (Alpha)
 -Added pop up modal for filter on By Apps screen  
 -Added text for filter  
 -Added Icon for filter  
 -Added switching function for filter  
 
-### v0.0.6 (Alpha) [Download Here](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz)
+### v3.2.0 (Alpha) [Download Here](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz)
 -Now adding download links to version builds. That means less updates but more content on each release  
 -Updated splash screens and published project to expo https://expo.io/@cokere/socialite  
 
-### v0.0.5 (Alpha)
+### v3.0.0 (Alpha)
 -Updating logo  
 -Updating Splash page  
 -Updating slogan  
 
-### v0.0.4 (Alpha)
+### v2.0.0 (Alpha)
 -Added proper create screen with styling  
 -Changed All/ByApp demo layout  
 -Added checkbox states  
@@ -54,11 +55,11 @@ Open source app for a social media aggregate site built on React-Native.
 -Added colored checkboxes  
 -Added search screen  
 
-### v0.0.3 (Alpha)  
+### v1.2.0 (Alpha)  
 -Added icons to the top-bar-nav class properties  
 -Added socialite icon  
 
-### v0.0.2 (Alpha)
+### v1.1.0 (Alpha)
 -Fleshed out main screens  
 -Finished top-bar-nav implementation  
 -Changed some designs for better UX and added buttons at bottom with color to match theme  
