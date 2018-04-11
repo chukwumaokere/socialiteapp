@@ -8,7 +8,18 @@ Open source app for a social media aggregate site built on React-Native.
 ### [v0.0.6](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
-### v0.1.0 (Alpha) (latest)  
+### v0.2.0 (Alpha) (latest)
+-Added style to the "Create Post" modal  
+-Added function to replace image  
+-Added function to remove image  
+-Added function to preview image  
+-Fixed function to bring back modal if you cancel image selection  
+-Fixed function to preserve written text, current image and checkboxes if you cancel image selection   
+-Fixed function to make sure elements are cleared if modal is completely closed  
+-Edited icons to show as socialite color scheme red  
+-Need to style create post screen  
+-Need to add save for later button on Create post modal  
+### v0.1.0 (Alpha) 
 -Changed how the tiles are rendered. Using arrays of tile compotenents for future code iteration of API data and filter   
 -Added keys to prevent warning  
 
