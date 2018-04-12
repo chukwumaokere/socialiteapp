@@ -9,7 +9,15 @@ export default class AccountDetails extends React.Component {
      headerLeft: null,
   };
 
+  _Logout = () => {
+	const {navigate} = this.props.navigation;
+	//some log outy things
+	console.log('logging out...');
+	navigate('Login');
+  }
+
   render() {
+    const {navigate} = this.props.navigation;
     const { manifest } = Constants;
     const sections = [
       { data: [{ value: manifest.sdkVersion }], title: 'sdkVersion' },
@@ -53,6 +61,8 @@ export default class AccountDetails extends React.Component {
     ];
 
     return (
+	<View style={{flex: 1, flexDirection: 'column'}}>
+	<View style={{flex: 11, }}>
       <SectionList
         style={styles.container}
         renderItem={this._renderItem}
@@ -62,6 +72,15 @@ export default class AccountDetails extends React.Component {
         ListHeaderComponent={ListHeader}
         sections={sections}
       />
+	</View>
+	<View style={{flex: 1}}>
+	<TouchableOpacity onPress={this._Logout}>
+                                <View style={styles.button}>
+                                        <Text style={{fontSize: 20, color: 'white',}}>LOG OUT</Text>
+                                </View>
+                        </TouchableOpacity>
+	</View>
+	</View>
     );
   }
 
@@ -226,5 +245,14 @@ const styles = StyleSheet.create({
   },
   colorTextContainer: {
     flex: 1,
+  },
+  button: {
+    backgroundColor: '#e52f37',
+    padding: 12,
+    margin: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
   },
 });

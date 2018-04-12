@@ -21,7 +21,6 @@ import Colors from '../constants/Colors';
 import { ImagePicker} from 'expo';
 import HomeScreen from '../screens/HomeScreen';
 import AccountDetails from '../screens/AccountDetails';
-import CreateScreen from '../screens/CreateScreen';
 import SearchScreen from '../screens/SearchScreen';
 const vidimg = require('../assets/images/download.png');
 

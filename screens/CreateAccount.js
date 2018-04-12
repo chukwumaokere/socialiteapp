@@ -11,10 +11,23 @@ const bg = require('../assets/images/splashicon.png');
 
 export default class CreateAccount extends React.Component {
   static navigationOptions = {title: 'Create a New Account'}
+  createAccount = () => {
+	const {navigate} = this.props.navigation;
+	//some creaty things
+	//if successful, then do this
+	navigate('Login');
+  }
+  state = {
+	username: '',
+	password: '',
+	email: '',
+	phone: '',
+  }
   clearText = () => {
 	this.search.clear();
   }
   render() {
+   const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
 	<KeyboardAvoidingView behavior='padding' style={styles.container}>
@@ -27,16 +40,18 @@ export default class CreateAccount extends React.Component {
 			<Text style={styles.h2}>All your social media in one place</Text>
 		</View>
 		<View style={styles.infoContainer}>
-			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Username..." placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} />
-			<TextInput style={styles.input} returnKeyType='go'  placeholder="Enter Password..." placeholderTextColor="rgba(0,0,0,0.3)" secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} />
-			<TouchableOpacity >
+			<TextInput style={styles.input} returnKeyType='next' placeholder="Choose A Username..." placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} />
+			<TextInput style={styles.input} returnKeyType='next'  placeholder="Enter A Password..." placeholderTextColor="rgba(0,0,0,0.3)" secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} onSubmitEditing={()=> this.refs.email.focus()} />
+			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Your Email Address..." placeholderTextColor="rgba(0,0,0,0.3)" ref={'email'} keyboardType={'email-address'} onSubmitEditing={()=> this.refs.phonen.focus()} />
+			<TextInput style={styles.input} returnKeyType='go' keyboardType={'numeric'} placeholder="Enter Your Phone Number..." placeholderTextColor="rgba(0,0,0,0.3)" ref={'phonen'} />
+			<TouchableOpacity onPress={this.createAccount} >
 				<View style={styles.button}>
-					<Text style={{fontSize: 20, color: 'white',}}>LOGIN</Text>
+					<Text style={{fontSize: 20, color: 'white',}}>CREATE ACCOUNT</Text>
 				</View>
 			</TouchableOpacity>
-			<TouchableOpacity>
+			<TouchableOpacity onPress={() => {navigate('Login')}}>
 				<View style={styles.signup}>
-					<Text>Don't have an account? Sign up now!</Text>
+					<Text>Already have an account? Just go Log In!</Text>
 				</View>
 			</TouchableOpacity>
 		</View>
@@ -60,14 +75,14 @@ const styles = StyleSheet.create({
 	marginBottom: 180,
   },
   logoContainer: {
-	marginTop: -20,
+	marginTop: -250,
 	alignItems: 'center',
 	justifyContent: 'center',
 	flex: 1,
   },
   logo: {
-	width: 190,
-	height: 190,
+	width: 100,
+	height: 100,
   },
   container: {
     flex: 1,
@@ -85,9 +100,9 @@ const styles = StyleSheet.create({
 	position: 'absolute',
 	left: 0,
 	right: 0,
-	bottom: 0,
+	bottom: 100,
 	padding: 22,
-	marginBottom: 30,
+	marginBottom: 80,
   },
   input: {
 	height: 40,

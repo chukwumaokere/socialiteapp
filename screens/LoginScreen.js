@@ -11,12 +11,28 @@ const bg = require('../assets/images/splashicon.png');
 
 
 export default class LoginScreen extends React.Component {
-  static navigationOptions = { title: 'Login', header: false, };
+  static navigationOptions = { 
+	title: 'Login', 
+  	header: false, 
+  };
+  state = {
+
+  }
+
+  login = () => {
+	const {navigate} = this.props.navigation;
+	//Do some loggy in things here.
+	//capture this.state.logininfo, check against db
+	//return true or false
+	// if true
+	navigate('Main', {name: 'Chuck'});
+	
+  }
   clearText = () => {
 	this.search.clear();
   }
   render() {
-	const {navigate} = this.props.navigation;
+    const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
 	<KeyboardAvoidingView behavior='padding' style={styles.container}>
@@ -31,7 +47,7 @@ export default class LoginScreen extends React.Component {
 		<View style={styles.infoContainer}>
 			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Username..." placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} />
 			<TextInput style={styles.input} returnKeyType='go'  placeholder="Enter Password..." placeholderTextColor="rgba(0,0,0,0.3)" secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} />
-			<TouchableOpacity onPress={()=> navigate('Main',)}>
+			<TouchableOpacity onPress={this.login}>
 				<View style={styles.button}>
 					<Text style={{fontSize: 20, color: 'white',}}>LOGIN</Text>
 				</View>
