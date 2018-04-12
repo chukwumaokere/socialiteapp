@@ -40,10 +40,10 @@ export default class CreateAccount extends React.Component {
 			<Text style={styles.h2}>All your social media in one place</Text>
 		</View>
 		<View style={styles.infoContainer}>
-			<TextInput style={styles.input} returnKeyType='next' placeholder="Choose A Username..." placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} />
-			<TextInput style={styles.input} returnKeyType='next'  placeholder="Enter A Password..." placeholderTextColor="rgba(0,0,0,0.3)" secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} onSubmitEditing={()=> this.refs.email.focus()} />
-			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Your Email Address..." placeholderTextColor="rgba(0,0,0,0.3)" ref={'email'} keyboardType={'email-address'} onSubmitEditing={()=> this.refs.phonen.focus()} />
-			<TextInput style={styles.input} returnKeyType='go' keyboardType={'numeric'} placeholder="Enter Your Phone Number..." placeholderTextColor="rgba(0,0,0,0.3)" ref={'phonen'} />
+			<TextInput style={styles.input} returnKeyType='next' placeholder="Choose A Username..." placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} autoCaptialize={'none'} autoCorrect={false} />
+			<TextInput style={styles.input} returnKeyType='next'  placeholder="Enter A Password..." placeholderTextColor="rgba(0,0,0,0.3)" secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} onSubmitEditing={()=> this.refs.email.focus()} autoCaptialize={'none'} autoCorrect={false} />
+			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Your Email Address..." placeholderTextColor="rgba(0,0,0,0.3)" ref={'email'} keyboardType={'email-address'} onSubmitEditing={()=> this.refs.phonen.focus()} autoCaptialize={'none'} autoCorrect={false} />
+			<TextInput style={styles.input} returnKeyType='go' keyboardType={'numeric'} placeholder="Enter Your Phone Number..." placeholderTextColor="rgba(0,0,0,0.3)" ref={'phonen'} autoCaptialize={'none'} autoCorrect={false} />
 			<TouchableOpacity onPress={this.createAccount} >
 				<View style={styles.button}>
 					<Text style={{fontSize: 20, color: 'white',}}>CREATE ACCOUNT</Text>
