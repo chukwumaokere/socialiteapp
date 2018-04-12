@@ -20,8 +20,7 @@ import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
 import Colors from '../constants/Colors';
 import { ImagePicker} from 'expo';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import AccountDetails from '../screens/AccountDetails';
 import CreateScreen from '../screens/CreateScreen';
 import SearchScreen from '../screens/SearchScreen';
 const vidimg = require('../assets/images/download.png');
@@ -214,8 +213,8 @@ export default TabNavigator(
     Search: {
       screen: SearchScreen,
     },
-    Settings: {
-      screen: SettingsScreen,
+    AccountDetails: {
+      screen: AccountDetails,
     }
   },
   {
@@ -230,7 +229,7 @@ export default TabNavigator(
             break;
           case 'Home': iconName = Platform.OS === 'ios' ? `ios-home${focused ? '' : '-outline'}` : 'md-options';
 	    break;
-	  case 'Settings': iconName = Platform.OS === 'ios' ? `ios-settings${focused ? '' : '-outline'}` : 'ion-android-settings';
+	  case 'AccountDetails': iconName = Platform.OS === 'ios' ? `ios-settings${focused ? '' : '-outline'}` : 'ion-android-settings';
         }
         return (
           <Ionicons

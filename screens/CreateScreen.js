@@ -14,7 +14,6 @@ import {Image,
 import { NavigationActions, StackNavigator } from 'react-navigation';
 import { ExpoLinksView } from '@expo/samples';
 import HomeScreen from '../screens/HomeScreen';
-import CreateScreenA from '../screens/CreateScreenA';
 
 {/*
 const navigateAction = NavigationActions.back({
@@ -79,9 +78,6 @@ class CreateModal extends Component {
 }
 
 const BaseStack = StackNavigator({
-        Home: {
-                screen: CreateScreenA
-        },  
 	RealHome: {
 		screen: HomeScreen
 	},
