@@ -5,13 +5,19 @@ Open source app for a social media aggregate site built on React-Native.
 ### Expo URL: https://expo.io/@cokere/socialite  
 
 # Downloads:  
-### [v0.0.6](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz) Released: April 9, 2018   
+### [v3.2.0](http://chukwumaokere.com/socialite/downloads/socialitev320.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
-### v5.3.1 (Alpha) (latest)   
+### v5.5.0 (Alpha) (latest)  
+-Added login screen and styling elements   
+-Added ability to upload videos   
+-Can crop image to 4:3 and video length   
+-Added placeholder image until I can get video thumbnail   
+
+### v5.3.1 (Alpha)    
 -Fixed bug with sort function that caused warning by setting state using componentDidMount()   
 
-### v5.3.0 (Alpha) (latest)
+### v5.3.0 (Alpha) 
 -Added Sort function in the By App screen  
 
 ### v5.2.4 (Alpha) 
@@ -44,7 +50,7 @@ Open source app for a social media aggregate site built on React-Native.
 -Added Icon for filter  
 -Added switching function for filter  
 
-### v3.2.0 (Alpha) [Download Here](http://chukwumaokere.com/socialite/downloads/socialitev006.tar.gz)
+### v3.2.0 (Alpha) [Download Here](http://chukwumaokere.com/socialite/downloads/socialitev320.tar.gz)
 -Now adding download links to version builds. That means less updates but more content on each release  
 -Updated splash screens and published project to expo https://expo.io/@cokere/socialite  
 
