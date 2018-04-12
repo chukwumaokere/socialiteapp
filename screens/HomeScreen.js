@@ -219,7 +219,8 @@ const ROUTESTACK = [
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-	header: null
+	header: null,
+	gesturesEnabled: false,
   };
 
   render() { 
