@@ -6,6 +6,7 @@ import { SearchBar } from 'react-native-elements';
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
     title: 'Search',
+    headerLeft: null,
   };
   searchMethod = (term) => {
 	console.log('searching for ' + term);

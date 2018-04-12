@@ -4,19 +4,17 @@ import React from 'react';
 import { ScrollView, StyleSheet, SafeAreaView, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View, Image, TextInput, TouchableOpacity, Text } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { SearchBar } from 'react-native-elements';
-
+import MainTabNavigator from '../navigation/MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const bg = require('../assets/images/splashicon.png');
 
-
-export default class LoginScreen extends React.Component {
-  static navigationOptions = { title: 'Login', };
+export default class CreateAccount extends React.Component {
+  static navigationOptions = {title: 'Create a New Account'}
   clearText = () => {
 	this.search.clear();
   }
   render() {
-	const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
 	<KeyboardAvoidingView behavior='padding' style={styles.container}>
@@ -31,12 +29,12 @@ export default class LoginScreen extends React.Component {
 		<View style={styles.infoContainer}>
 			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Username..." placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} />
 			<TextInput style={styles.input} returnKeyType='go'  placeholder="Enter Password..." placeholderTextColor="rgba(0,0,0,0.3)" secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} />
-			<TouchableOpacity onPress={()=> navigate('Main',)}>
+			<TouchableOpacity >
 				<View style={styles.button}>
 					<Text style={{fontSize: 20, color: 'white',}}>LOGIN</Text>
 				</View>
 			</TouchableOpacity>
-			<TouchableOpacity onPress={()=> navigate('CreateAccount',)}>
+			<TouchableOpacity>
 				<View style={styles.signup}>
 					<Text>Don't have an account? Sign up now!</Text>
 				</View>

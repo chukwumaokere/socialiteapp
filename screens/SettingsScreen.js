@@ -6,6 +6,7 @@ import { Constants } from 'expo';
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'Settings',
+     headerLeft: null,
   };
 
   render() {
