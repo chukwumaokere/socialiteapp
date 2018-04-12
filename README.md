@@ -8,7 +8,12 @@ Open source app for a social media aggregate site built on React-Native.
 ### [v3.2.0](http://chukwumaokere.com/socialite/downloads/socialitev320.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
-### v5.5.0 (Alpha) (latest)  
+### v5.6.0 (Alpha)   
+-Added CreateScreen.js for account creation   
+-Modified RootNavigator to expose other screens   
+-Modified screens to prevent Login on headerLeft   
+
+### v5.5.0 (Alpha)   
 -Added login screen and styling elements   
 -Added ability to upload videos   
 -Can crop image to 4:3 and video length   
