@@ -11,7 +11,7 @@ const bg = require('../assets/images/splashicon.png');
 
 
 export default class LoginScreen extends React.Component {
-  static navigationOptions = { title: 'Login', };
+  static navigationOptions = { title: 'Login', header: false, };
   clearText = () => {
 	this.search.clear();
   }
