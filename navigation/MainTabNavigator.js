@@ -24,6 +24,7 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import CreateScreen from '../screens/CreateScreen';
 import SearchScreen from '../screens/SearchScreen';
+const vidimg = require('../assets/images/download.png');
 
 class CreateModal extends Component {
   state = {
@@ -35,14 +36,16 @@ class CreateModal extends Component {
     ptChecked: false,
     message: null,
     photos: [],
+    previmg: null,
     image: null,
+    prevtext: '',
   };
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
   toggleModal = () => {
-	this.setState({modalVisible: !this.state.Visible, image: null, message: null});
+	this.setState({modalVisible: !this.state.Visible, image: null, message: null, prevtext: '', previmg: null});
   }
   resetModalState(){
 	if (true == true){
@@ -65,14 +68,22 @@ class CreateModal extends Component {
     this.setState({modalVisible: false});
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      
+      mediaTypes: 'All',     
     });
    console.log(result);
    console.log('hello');
 
     if (!result.cancelled) {
       //Alert.alert("Image Selected!", result.uri); 
-      this.setState({ image: result.uri });
+	this.setState({image: {uri: result.uri} });
+	if (result.type == 'video'){
+		console.log('videopicked');
+		this.setState({previmg: vidimg });
+		this.setState({prevtext: 'Video'});
+	}else{
+      		this.setState({previmg: {uri: result.uri} });
+		this.setState({prevtext: 'Image'});
+	}
     }
     if (result.cancelled){
 	this.setState({modalVisible: true});
@@ -100,15 +111,15 @@ class CreateModal extends Component {
                 //var potImgProps = '';
                 imgPrev = []; 
         }else{
-                var imgText = 'Replace Photo/Video';
+                var imgText = 'Replace ' + this.state.prevtext;
                 var imgIcon = 'minus';
                 //var t = 'Image Preview';
                 //var potImgProps = 'source={this.state.image}';
-                imgPrev = [<Text key={1} style={styles.imgprevtext}>Image Preview:</Text>,
+                imgPrev = [<Text key={1} style={styles.imgprevtext}>Preview:</Text>,
 				<View key={2} style={{flex: 1, flexDirection: 'row'}}>
-                                <Image style={{flex:4}} style={styles.imgprev} source={{uri:this.state.image}}/>
+                                <Image style={{flex:4}} style={styles.imgprev} source={this.state.previmg}/>
 				<View style={{flex: 1, justifyContent:'center', alignItems: 'center' }}>
-				<CheckBox size={18} title={'Remove Image'} checked={true} checkedIcon={'minus'} checkedColor={'#e52f37'} onPress={this.clearImage} />
+				<CheckBox size={18} title={'Remove '+this.state.prevtext} checked={true} checkedIcon={'minus'} checkedColor={'#e52f37'} onPress={this.clearImage} />
 				</View>
 				</View>,
                                 ];  
