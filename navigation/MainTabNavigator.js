@@ -26,6 +26,9 @@ import SearchScreen from '../screens/SearchScreen';
 const vidimg = require('../assets/images/download.png');
 
 class CreateModal extends Component {
+static navigationOptions = {
+     headerLeft: null,
+  };
   state = {
     modalVisible: true,
     fbChecked: false,
