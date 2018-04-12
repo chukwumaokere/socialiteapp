@@ -1,4 +1,4 @@
-#Special thanks to these references for making this possible: 
+# Special thanks to these references for making this possible: 
 
 https://github.com/react-native-community/react-native-modal  
 
