@@ -64,20 +64,17 @@ class CreateModal extends Component {
 	navigate('HomeScreen');
   }
   _pickImage = async () => {
-    console.log('how');
     this.setState({modalVisible: false});
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       mediaTypes: 'All',     
     });
    console.log(result);
-   console.log('hello');
 
     if (!result.cancelled) {
       //Alert.alert("Image Selected!", result.uri); 
 	this.setState({image: {uri: result.uri} });
 	if (result.type == 'video'){
-		console.log('videopicked');
 		this.setState({previmg: vidimg });
 		this.setState({prevtext: 'Video'});
 	}else{
@@ -135,7 +132,6 @@ class CreateModal extends Component {
             alert('Modal has been closed.');
 	  }}
 	  onDismiss={() => {
-		console.log('closing');
 	  }}
           >
           <View style={{marginTop: 25, marginBottom: 25}}>
@@ -175,7 +171,6 @@ class CreateModal extends Component {
 
         <TouchableHighlight
           onPress={() => {
-		console.log('Hi');
           }}>
           <Text> </Text>
         </TouchableHighlight>
@@ -251,7 +246,6 @@ export default TabNavigator(
 		if (routeName == 'Create'){
 			navigation.navigate(routeName, {show: true, prevScene: previousScene});
 			return(<View> <CreateModal show={true}/> </View>);
-			console.log(routeName);
 		}else{
 			navigation.navigate(routeName);
 		}
