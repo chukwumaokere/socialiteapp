@@ -14,6 +14,7 @@ export default class LoginScreen extends React.Component {
   static navigationOptions = { 
 	title: 'Login', 
   	header: false, 
+	gesturesEnabled: false,
   };
   state = {
 

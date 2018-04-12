@@ -7,11 +7,18 @@ export default class LinksScreen extends React.Component {
   static navigationOptions = {
     title: 'Search',
     headerLeft: null,
+    gesturesEnabled: false,
   };
+  state={
+	search: '',
+
+  }
   searchMethod = (term) => {
-	console.log('searching for ' + term);
+	this.setState({search: term});
+	console.log('searching for ' + this.state.search);
   }
   clearText = () => {
+	console.log('clearingtext');
 	this.search.clear();
   }
   render() {
@@ -27,6 +34,11 @@ export default class LinksScreen extends React.Component {
 		placeholder='Search For...'
 		clearIcon={{color: '#86939e', name: 'close' }}
 		cancelButtonTitle="Cancel"
+		enableReturnKeyAutomatically={true}
+		returnKeyType={'search'}
+		autoCapitalize={'none'}
+		autoFocus={true}
+		enablesReturnKeyAutomatically={true}
 		ref={search => this.search = search}
 		onCancel={this.clearText}
 		 />

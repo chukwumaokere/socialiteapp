@@ -7,6 +7,7 @@ export default class AccountDetails extends React.Component {
   static navigationOptions = {
     title: 'Account',
      headerLeft: null,
+	gesturesEnabled: false,
   };
 
   _Logout = () => {

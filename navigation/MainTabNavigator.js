@@ -27,6 +27,7 @@ const vidimg = require('../assets/images/download.png');
 class CreateModal extends Component {
 static navigationOptions = {
      headerLeft: null,
+	gesturesEnabled: false,
   };
   state = {
     modalVisible: true,
