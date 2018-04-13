@@ -8,8 +8,11 @@ Open source app for a social media aggregate site built on React-Native.
 ### [v3.2.0](http://chukwumaokere.com/socialite/downloads/socialitev320.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
+### v6.0.0 (Alpha) (latest)
+-Added API to socialite web for account creation   
+-Added full create account function with errors. Need to add type checking   
 
-### v5.8.0 (Alpha) (latest)   
+### v5.8.0 (Alpha)   
 -Added props to inputboxes and search bar to prevent autocorrect and autocapitalize   
 -Added intro to search method   
 
