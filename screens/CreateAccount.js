@@ -47,8 +47,9 @@ export default class CreateAccount extends React.Component {
 			phone: phone
 		})
 	}).then( (response) => response.json() )
-                .then( (responseJson) => { Alert.alert(responseJson)} )
+                .then( (responseJson) => { Alert.alert(responseJson); if(responseJson.includes("Successfully")){ navigate('Login')}} )
                 .catch( (error) => {console.error(error)} );
+	
 	//navigate('Login');
   }
   clearText = () => {
