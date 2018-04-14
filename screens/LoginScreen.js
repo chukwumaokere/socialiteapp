@@ -1,7 +1,7 @@
 import { Notifications } from 'expo';
 import { StackNavigator } from 'react-navigation';
 import React from 'react';
-import { ScrollView, StyleSheet, SafeAreaView, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View, Image, TextInput, TouchableOpacity, Text } from 'react-native';
+import { ScrollView, StyleSheet, SafeAreaView, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View, Image, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { SearchBar } from 'react-native-elements';
 
@@ -17,16 +17,48 @@ export default class LoginScreen extends React.Component {
 	gesturesEnabled: false,
   };
   state = {
+	username: '',
+	password: '',
+	email: '',
+        firstname: '',
+        lastname: '',
+        phone: '',
 
   }
 
   login = () => {
 	const {navigate} = this.props.navigation;
-	//Do some loggy in things here.
+        //some creaty things
+        //if successful, then do this
+        const {username} = this.state;
+        const {password} = this.state;
+        const {email} = this.state;
+        const {firstname} = this.state;
+        const {lastname} = this.state;
+        const {phone} = this.state;
+
+        fetch('http://chukwumaokere.com/socialite/webservice/login.php', {
+                method: 'post',
+                header: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                        username: username,
+                        password: password,
+                        email: email,
+                        firstname: firstname,
+                        lastname: lastname,
+                        phone: phone
+                })
+        }).then( (response) => response.json() )
+                .then( (responseJson) => { if(responseJson.includes("Successful")){ navigate('Main', {firstname: this.firstname, lastname: this.lastname, email: this.email, phone: this.phone,}); }else{ Alert.alert(responseJson); console.log('login issue');}} )
+                .catch( (error) => {console.error(error)} );	
+//Do some loggy in things here.
 	//capture this.state.logininfo, check against db
 	//return true or false
 	// if true
-	navigate('Main', {name: 'Chuck'});
+	//navigate('Main', {name: this.firstname});
 	
   }
   clearText = () => {
@@ -46,8 +78,8 @@ export default class LoginScreen extends React.Component {
 			<Text style={styles.h2}>All your social media in one place</Text>
 		</View>
 		<View style={styles.infoContainer}>
-			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Username..." placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} autoCaptialize={'none'} autoCorrect={false} />
-			<TextInput style={styles.input} returnKeyType='go'  placeholder="Enter Password..." placeholderTextColor="rgba(0,0,0,0.3)" secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} clearButtonMode={'while-editing'} />
+			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Username..." placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} autoCaptialize={'none'} autoCorrect={false} onChangeText={(something) => {this.setState({username: something})}} />
+			<TextInput style={styles.input} returnKeyType='go'  placeholder="Enter Password..." placeholderTextColor="rgba(0,0,0,0.3)" secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} clearButtonMode={'while-editing'} onChangeText={(something) => {this.setState({password: something})}} />
 			<TouchableOpacity onPress={this.login}>
 				<View style={styles.button}>
 					<Text style={{fontSize: 20, color: 'white',}}>LOGIN</Text>
