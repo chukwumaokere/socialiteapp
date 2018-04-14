@@ -32,7 +32,7 @@ export default class CreateAccount extends React.Component {
 	const {lastname} = this.state;
 	const {phone} = this.state;
 	
-	fetch('http://chukwumaokere.com/socialite/register.php', {
+	fetch('http://chukwumaokere.com/socialite/webservice/register.php', {
 		method: 'post',
 		header: {
 			'Accept': 'application/json',
