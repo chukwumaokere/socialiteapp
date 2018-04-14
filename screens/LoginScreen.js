@@ -54,12 +54,6 @@ export default class LoginScreen extends React.Component {
         }).then( (response) => response.json() )
                 .then( (responseJson) => { if(responseJson.includes("Successful")){ navigate('Main', {firstname: this.firstname, lastname: this.lastname, email: this.email, phone: this.phone,}); }else{ Alert.alert(responseJson); console.log('login issue');}} )
                 .catch( (error) => {console.error(error)} );	
-//Do some loggy in things here.
-	//capture this.state.logininfo, check against db
-	//return true or false
-	// if true
-	//navigate('Main', {name: this.firstname});
-	
   }
   clearText = () => {
 	this.search.clear();
