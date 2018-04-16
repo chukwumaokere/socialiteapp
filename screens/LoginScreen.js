@@ -72,8 +72,8 @@ export default class LoginScreen extends React.Component {
 			<Text style={styles.h2}>All your social media in one place</Text>
 		</View>
 		<View style={styles.infoContainer}>
-			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Username..." textContentType='none' secureTextEntry={false} placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} autoCaptialize={'none'} autoCorrect={false} onChangeText={(something) => {this.setState({username: something})}} />
-			<TextInput style={styles.input} returnKeyType='go'  placeholder="Enter Password..." placeholderTextColor="rgba(0,0,0,0.3)" textContentType='none' secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} clearButtonMode={'while-editing'} onChangeText={(something) => {this.setState({password: something})}} />
+			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Username..." textContentType='none' secureTextEntry={false} placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} autoCapitalize={'none'} autoCorrect={false} onChangeText={(something) => {this.setState({username: something})}} />
+			<TextInput style={styles.input} returnKeyType='go'  placeholder="Enter Password..." placeholderTextColor="rgba(0,0,0,0.3)" textContentType='none' secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} clearButtonMode={'while-editing'} onChangeText={(something) => {this.setState({password: something}); this.obscureText  }} />
 			<TouchableOpacity onPress={this.login}>
 				<View style={styles.button}>
 					<Text style={{fontSize: 20, color: 'white',}}>LOGIN</Text>
