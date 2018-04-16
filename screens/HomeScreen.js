@@ -184,11 +184,16 @@ class PickerModal extends Component{
 }
 
 const All = ({ index }) => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> 
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-	{postObj}
-    </ScrollView>
-  </View>
+<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> 
+	<ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+		<View style={{flex: 1}}>
+			<View style={styles.appselectorb}>
+				<Text style={styles.appselectortextb}> Hello, K!</Text> {/*replace with name var*/}
+			</View>
+			{postObj}
+		</View>
+	</ScrollView>
+</View>
 );
 
 filterBy = (filtername, originalArray) => {
@@ -313,10 +318,20 @@ const styles = StyleSheet.create({
 	marginBottom: 10, 
 	marginLeft: 20	
   },
+  appselectorb: {
+        flex: 1,
+        marginBottom: 13,
+        marginLeft: 20
+  },
   appselectortext: {
 	flex: 1,
 	fontSize: 16,
 	color: '#9e9e9e'
+  },
+  appselectortextb: {
+        flex: 1,
+        fontSize: 16,
+        color: '#9e9e9e'
   },
   appselectoricon: {
 	flex: 2,
