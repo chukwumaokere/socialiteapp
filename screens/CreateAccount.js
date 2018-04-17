@@ -25,7 +25,6 @@ function formatDate(date) {
   return monthNames[monthIndex] + ' ' + day + ', ' + year;
 }
 
-console.log(formatDate(new Date()));
 
 const today = new Date();
 const dobString = formatDate(new Date()).toString(); 
@@ -82,7 +81,6 @@ export default class CreateAccount extends React.Component {
 	this.search.clear();
   }
   showDob = () => {	
-	console.log('it ran');
 	this.setState({showDob: !this.state.showDob});
   }
   updateDob = (date) => {
@@ -110,12 +108,12 @@ export default class CreateAccount extends React.Component {
 			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter your Last Name..." placeholderTextColor="rgba(0,0,0,0.3)" ref={'lastn'} onSubmitEditing={()=> this.refs.usern.focus()} autoCaptialize={'none'} autoCorrect={false} onChangeText={(something) => {this.setState({lastname: something})}} />
 			<TextInput style={styles.input} returnKeyType='next' placeholder="Choose A Username..." placeholderTextColor="rgba(0,0,0,0.3)" ref={'usern'} onSubmitEditing={()=> this.refs.txtPassword.focus()} autoCaptialize={'none'} autoCorrect={false} onChangeText={(something) => {this.setState({username: something})}} />
 			<TextInput style={styles.input} returnKeyType='next'  placeholder="Enter A Password..." placeholderTextColor="rgba(0,0,0,0.3)" secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} onSubmitEditing={()=> this.refs.txtdob.focus()} autoCaptialize={'none'} autoCorrect={false} onChangeText={(something) => {this.setState({password: something})}} />
-			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter your Birthdate..." placeholderTextColor="rgba(0,0,0,0.3)" autoCorrect={false} ref={'txtdob'} onFocus={() => {this.showDob(); console.log('clicked dob'); Keyboard.dismiss() }} value={this.state.dobString} />
+			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter your Birthdate..." placeholderTextColor="rgba(0,0,0,0.3)" autoCorrect={false} ref={'txtdob'} onFocus={() => {this.showDob(); Keyboard.dismiss() }} value={this.state.dobString} />
 
 			<View>
 			<Modal style={styles.bottomModal} isVisible={this.state.showDob} onSwipe={() => this.setState({ showDob: false })}  swipeDirection="down" onBackdropPress={() => this.setState({ showDob: false })} >
 			<View style={styles.datecontainer}>
-				<DatePickerIOS date={this.state.dob} mode={'date'} onDateChange={ (newdate) => { this.setState({dob: newdate }); console.log(newdate); this.updateDob(newdate); console.log(this.state.dob) }} visible={false}  />
+				<DatePickerIOS date={this.state.dob} mode={'date'} onDateChange={ (newdate) => { this.setState({dob: newdate }); this.updateDob(newdate) }} visible={false}  />
 				 <TouchableOpacity onPress={()=>{this.showDob();}} >
                                         <View style={styles.button}>
                                                 <Text style={{fontSize: 20, color: 'white',}}>DONE</Text>
