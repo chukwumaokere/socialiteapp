@@ -182,14 +182,25 @@ class PickerModal extends Component{
         }
 
 }
+class GreetingHeader extends Component {
+	state = this.props.info.info.data;
 
-const All = ({ index }) => (
+	render(){
+		console.log(this.state);
+		return(
+		<View style={styles.appselectorb}>
+                	<Text style={styles.appselectortextb}> Hello, {this.state.firstname}!</Text> 
+                </View>
+
+		);
+	}
+
+}
+const All = (props) => (
 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> 
 	<ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 		<View style={{flex: 1}}>
-			<View style={styles.appselectorb}>
-				<Text style={styles.appselectortextb}> Hello, K!</Text> {/*replace with name var*/}
-			</View>
+			<GreetingHeader info={props} />
 			{postObj}
 		</View>
 	</ScrollView>
@@ -229,7 +240,8 @@ export default class HomeScreen extends React.Component {
   };
 
   render() { 
-    
+//console.log('first things first');
+// console.log(this.props.navigation.state.params);
     return (
 
       <View style={styles.container}>
@@ -242,7 +254,7 @@ export default class HomeScreen extends React.Component {
 		  renderScene={(route, i) => {
 		    // This is a lot like the now deprecated Navigator component
 		    let Component = ROUTES[route.title];
-		    return (<Component />);
+		    return (<Component info={this.props.navigation.state.params} />);
 		  }}
 		  // Below are optional props
 		  headerStyle={[styles.headerStyle, { paddingTop: 30 }]} // probably want to add paddingTop: 20 if using TopBarNav for the  entire height of screen on iOS
@@ -258,7 +270,7 @@ export default class HomeScreen extends React.Component {
       </View>
     );
   }
-
+/*
   _maybeRenderDevelopmentModeWarning() {
     if (__DEV__) {
       const learnMoreButton = (
@@ -290,7 +302,7 @@ export default class HomeScreen extends React.Component {
     WebBrowser.openBrowserAsync(
       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
     );
-  };
+  }; */
 }
 
 const styles = StyleSheet.create({
