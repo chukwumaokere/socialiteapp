@@ -18,7 +18,10 @@ import {
 } from 'react-native';
 import { Icon, Overlay } from 'react-native-elements';
 
+var time = new Date(); //try to get users time zone for custom greetings
+
 var logo = require('../assets/images/icon.png');
+
 let imageSources = { 
         fb: require('../assets/images/fb.png'),
         tw: require('../assets/images/tw.png'),
@@ -164,6 +167,7 @@ class PickerModal extends Component{
         //Functions - end
 
         render(){
+		//console.log(time);  //will eventually be client time
                 return(
                         <View style={{flex: 1}}>
                         <View style={styles.appselector}>
@@ -186,7 +190,7 @@ class GreetingHeader extends Component {
 	state = this.props.info.info.data;
 
 	render(){
-		console.log(this.state);
+		//console.log(this.state); //shows passed parameters
 		return(
 		<View style={styles.appselectorb}>
                 	<Text style={styles.appselectortextb}> Hello, {this.state.firstname}!</Text> 
