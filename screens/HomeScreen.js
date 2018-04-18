@@ -18,8 +18,6 @@ import {
 } from 'react-native';
 import { Icon, Overlay } from 'react-native-elements';
 
-var time = new Date(); //try to get users time zone for custom greetings
-
 var logo = require('../assets/images/icon.png');
 
 let imageSources = { 
@@ -167,7 +165,6 @@ class PickerModal extends Component{
         //Functions - end
 
         render(){
-		//console.log(time);  //will eventually be client time
                 return(
                         <View style={{flex: 1}}>
                         <View style={styles.appselector}>
@@ -188,12 +185,24 @@ class PickerModal extends Component{
 }
 class GreetingHeader extends Component {
 	state = this.props.info.info.data;
-
 	render(){
+		timer = new Date();
+		var timest = timer.toString();
+		var hour = timer.getHours();
+		var gtype;
 		//console.log(this.state); //shows passed parameters
+		var greetings = { standard:  ['Hello', 'Hi', 'You\'re awesome', 'What\'s up', 'G\'day', 'Hiya', 'Hiiiiiii', 'Oh Hi', 'Howdy', 'Hey',],
+				  morning: 'Good Morning',
+				  afternoon: 'Good Afternoon',
+				  evening: 'Good Evening',
+				};
+		if (hour < 12){ gtype = 'morning'; }
+		if (hour >= 12 && hour < 18){ gtype = 'afternoon'; }
+		if (hour >= 18 && hour < 24){ gtype = 'evening'; }
+		var greeting = greetings[gtype];
 		return(
 		<View style={styles.appselectorb}>
-                	<Text style={styles.appselectortextb}> Hello, {this.state.firstname}!</Text> 
+                	<Text style={styles.appselectortextb}> {greeting}, {this.state.firstname}!</Text> 
                 </View>
 
 		);
