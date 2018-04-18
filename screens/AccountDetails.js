@@ -3,6 +3,8 @@ import { SectionList, Image, StyleSheet, Text, View, TouchableOpacity, } from 'r
 import { ExpoConfigView } from '@expo/samples';
 import { Constants } from 'expo';
 
+let name;
+
 export default class AccountDetails extends React.Component {
   static navigationOptions = {
     title: 'Account',
@@ -18,17 +20,21 @@ export default class AccountDetails extends React.Component {
   }
 
   render() {
+//	console.log('Settings stuff', this.props.navigation.state.params.data);
+	const data = this.props.navigation.state.params.data;
+	name = data.firstname + ' ' + data.lastname;
     const {navigate} = this.props.navigation;
     const { manifest } = Constants;
     const sections = [
-      { data: [{ value: manifest.sdkVersion }], title: 'sdkVersion' },
-      { data: [{ value: manifest.privacy }], title: 'privacy' },
-      { data: [{ value: manifest.version }], title: 'version' },
-      { data: [{ value: manifest.orientation }], title: 'orientation' },
+      { data: [{ value: data.firstname + ' ' + data.lastname }], title: 'Name' },
+      { data: [{ value: data.email }], title: 'Email Address' },
+      { data: [{ value: data.phone }], title: 'Phone Number' },
+      { data: [{ value: data.username }], title: 'Username' },
       {
-        data: [{ value: manifest.primaryColor, type: 'color' }],
-        title: 'primaryColor',
+        data: [{ value: '' }],
+        title: 'List of Apps',
       },
+      /*
       {
         data: [{ value: manifest.splash && manifest.splash.image }],
         title: 'splash.image',
@@ -58,7 +64,7 @@ export default class AccountDetails extends React.Component {
           },
         ],
         title: 'ios.supportsTablet',
-      },
+      },*/
     ];
 
     return (
@@ -108,9 +114,9 @@ export default class AccountDetails extends React.Component {
   };
 }
 
-const ListHeader = () => {
+const ListHeader = (props) => {
   const { manifest } = Constants;
-
+  console.log(props);
   return (
     <View style={styles.titleContainer}>
       <View style={styles.titleIconContainer}>
@@ -119,7 +125,7 @@ const ListHeader = () => {
 
       <View style={styles.titleTextContainer}>
         <Text style={styles.nameText} numberOfLines={1}>
-          {manifest.name}
+          {name}
         </Text>
 
         <Text style={styles.slugText} numberOfLines={1}>
@@ -250,7 +256,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#e52f37',
     padding: 12,
-    margin: 1,
+    margin: 3,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,

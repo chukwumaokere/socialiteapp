@@ -204,7 +204,8 @@ const styles = StyleSheet.create({
 
 });
 
-
+let stuff; 
+let deets;
 export default TabNavigator(
   {
     Home: {
@@ -234,6 +235,10 @@ export default TabNavigator(
 	    break;
 	  case 'AccountDetails': iconName = Platform.OS === 'ios' ? `ios-settings${focused ? '' : '-outline'}` : 'ion-android-settings';
         }
+	if (navigation.state.routeName == 'Home'){
+		stuff = navigation;
+		deets = navigation.state.params.data;
+	}
         return (
           <Ionicons
             name={iconName}
@@ -249,7 +254,11 @@ export default TabNavigator(
 			navigation.navigate(routeName, {show: true, prevScene: previousScene});
 			return(<View> <CreateModal show={true}/> </View>);
 		}else{
-			navigation.navigate(routeName);
+			if (routeName == 'AccountDetails'){
+				navigation.navigate(routeName, {data: deets});
+			}else{
+				navigation.navigate(routeName);
+			}
 		}
 	}
     }),
