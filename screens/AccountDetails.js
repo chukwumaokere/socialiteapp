@@ -116,7 +116,6 @@ export default class AccountDetails extends React.Component {
 
 const ListHeader = (props) => {
   const { manifest } = Constants;
-  console.log(props);
   return (
     <View style={styles.titleContainer}>
       <View style={styles.titleIconContainer}>
