@@ -269,7 +269,7 @@ class GreetingHeader extends Component {
 				  evening: 'Good Evening',
 				};
 		var randNum = Math.floor(Math.random() * 20) + 1;
-		if (randNum >= 1 && randNum <= 15){
+		if (randNum >= 1 && randNum <= 10){
 			gmethod = 'formal';
 		}else{
 			gmethod = 'casual';
