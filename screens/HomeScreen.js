@@ -111,7 +111,7 @@ function formatDate(date) {
 function TileFactory() {
 	var igPosts = [];
 	//Instagram
-	fetch('https://api.instagram.com/v1/users/self/media/recent/?access_token=46253620.561ca3f.abe403ef59b64910869beb5a55fe61a2').then(function(response){ 
+	return fetch('https://api.instagram.com/v1/users/self/media/recent/?access_token=46253620.561ca3f.abe403ef59b64910869beb5a55fe61a2').then(function(response){ 
 		return response.json();
 	}).then(function(ret){
 		var posts = ret.data;
@@ -150,14 +150,15 @@ function TileFactory() {
 		*/
 //		console.log(postObj.length);
 	postObj.concat(igPosts);
+	return postObj;
 	});
-	//console.log(igPosts);
 	//postObj.concat(igPosts);
-
+	
+/*
 	return new Promise(resolve => {
 		resolve(postObj);
 	});
-
+*/
 	//console.log(igPosts.length);
 	//return(igPosts);
 }
