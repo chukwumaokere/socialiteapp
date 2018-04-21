@@ -87,6 +87,72 @@ class Tile extends Component {
   }
 }
 
+function formatDate(date) {
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+  var hour = date.getHours();
+  var min = date.getMinutes();
+  var postscript;
+  if (hour >= 12){ postscript = 'pm'; }else{ postscript = 'am'; }
+  if (hour > 12){ hour = hour - 12 }
+
+  var timo = `${hour}:${min} ${postscript}`;
+
+  return monthNames[monthIndex] + ' ' + day + ', ' + year + ' ' + timo;
+}
+function TileFactory() {
+	var igPosts = [];
+	//Instagram
+	fetch('https://api.instagram.com/v1/users/self/media/recent/?access_token=46253620.561ca3f.abe403ef59b64910869beb5a55fe61a2').then(function(response){ 
+		return response.json();
+	}).then(function(ret){
+		var posts = ret.data;
+		var x = 12;
+		posts.forEach(function(post){
+			var im = post.images.standard_resolution.url;
+			var cap = '';
+			if(post.caption !== null){
+				cap = post.caption.text;
+			}
+			var ms = parseInt(post.created_time) * 1000;
+			var likes = post.likes.count;
+			var comments = post.comments.count;
+			var url = post.link;
+			var tags = post.tags;
+			var datea = new Date(ms);
+			var date = formatDate(datea);
+			
+			igPosts.push(
+				<Tile key={x} src={'ig'} datet={date}> {cap} </Tile>
+			);	
+			x++;
+		//	console.log(igPosts);
+		});
+	//	console.log(igPosts);
+	postObj.concat(igPosts);
+	});
+	//console.log(igPosts);
+	//postObj.concat(igPosts);
+	return new Promise(resolve => {
+		resolve('resolved');
+	});
+}
+async function pushAry() {
+	console.log('pushing');
+	var result = await TileFactory();
+	console.log(result);
+	console.log(TileFactory.igPosts);
+}
+
+
 const postObj = [ 
 	<Tile key={0} src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>,
 	<Tile key={1} src={'fb'} datet={'April 5, 2018 8:37 pm'}> This is just an inspirational line, inspiring you to... be inspirational </Tile>,
@@ -102,6 +168,12 @@ const postObj = [
 	<Tile key={10}> This tile comes from nowhere, so theres no icon </Tile>,
 	<Tile key={11}> This tile comes from nowhere, so theres no icon </Tile>
 ]
+
+pushAry();
+TileFactory();
+console.log(postObj.length);
+
+
 
 class PickerModal extends Component{
         constructor(props){
@@ -196,10 +268,28 @@ class GreetingHeader extends Component {
 				  afternoon: 'Good Afternoon',
 				  evening: 'Good Evening',
 				};
-		if (hour < 12){ gtype = 'morning'; }
-		if (hour >= 12 && hour < 18){ gtype = 'afternoon'; }
-		if (hour >= 18 && hour < 24){ gtype = 'evening'; }
-		var greeting = greetings[gtype];
+		var randNum = Math.floor(Math.random() * 20) + 1;
+		if (randNum >= 1 && randNum <= 15){
+			gmethod = 'formal';
+		}else{
+			gmethod = 'casual';
+		}
+		if (gmethod == 'formal'){
+			if (hour < 12){ gtype = 'morning'; }
+                	if (hour >= 12 && hour < 18){ gtype = 'afternoon'; }
+                	if (hour >= 18 && hour < 24){ gtype = 'evening'; }
+		}else if (gmethod == 'casual'){
+			gtype = 'standard';
+		}
+		console.log(`gtype = ${gtype}, num = ${randNum}`);
+		var greeting;
+		if (gmethod == 'formal'){ 
+			greeting = greetings[gtype];
+		}else if (gmethod == 'casual'){
+			var digit = greetings['standard'].length - 1;
+			var rNum = Math.floor(Math.random() * digit) + 0;
+			greeting = greetings['standard'][rNum];
+		}
 		return(
 		<View style={styles.appselectorb}>
                 	<Text style={styles.appselectortextb}> {greeting}, {this.state.firstname}!</Text> 
