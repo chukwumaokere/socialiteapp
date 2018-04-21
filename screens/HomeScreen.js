@@ -281,7 +281,7 @@ class GreetingHeader extends Component {
 		}else if (gmethod == 'casual'){
 			gtype = 'standard';
 		}
-		console.log(`gtype = ${gtype}, num = ${randNum}`);
+		//console.log(`gtype = ${gtype}, num = ${randNum}`);
 		var greeting;
 		if (gmethod == 'formal'){ 
 			greeting = greetings[gtype];
