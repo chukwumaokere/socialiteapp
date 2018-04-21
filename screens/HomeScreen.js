@@ -116,6 +116,7 @@ function TileFactory() {
 	}).then(function(ret){
 		var posts = ret.data;
 		var x = 12;
+		var bar = new Promise((resolve, reject) =>{
 		posts.forEach(function(post){
 			var im = post.images.standard_resolution.url;
 			var cap = '';
@@ -135,22 +136,36 @@ function TileFactory() {
 			);	
 			x++;
 		//	console.log(igPosts);
+			if (x == 20) resolve();
 		});
-	//	console.log(igPosts);
-	postObj.concat(igPosts);
+		});
+		//console.log(igPosts);
+		bar.then(() => {
+			console.log(postObj.concat(igPosts).length); //postObj.concat(igPosts).length == 20 and postObj.concat(igPosts) has all 20, but later down the code, it only shows 12... the concat isnt working
+			postObj.concat(igPosts);
+			console.log(igPosts.length);
+			console.log(postObj.length);
+		});
+		console.log(postObj.length);
+	//postObj.concat(igPosts);
 	});
 	//console.log(igPosts);
 	//postObj.concat(igPosts);
+/*
 	return new Promise(resolve => {
 		resolve('resolved');
 	});
+*/
+	//console.log(igPosts.length);
+	//return(igPosts);
 }
+/*
 async function pushAry() {
 	console.log('pushing');
 	var result = await TileFactory();
 	console.log(result);
 	console.log(TileFactory.igPosts);
-}
+}*/
 
 
 const postObj = [ 
@@ -169,9 +184,9 @@ const postObj = [
 	<Tile key={11}> This tile comes from nowhere, so theres no icon </Tile>
 ]
 
-pushAry();
+//pushAry();
 TileFactory();
-console.log(postObj.length);
+console.log(postObj.length); //still prints 12 even though the TileFactory runs...
 
 
 
