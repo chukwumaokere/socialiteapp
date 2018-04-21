@@ -8,11 +8,15 @@ Open source app for a social media aggregate site built on React-Native.
 ### [v3.2.0](http://chukwumaokere.com/socialite/downloads/socialitev320.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
-### v6.5.0 (Alpha) (latest)
+### v6.5.1 (Alpha) (latest)
+-Tweaked value for formal greeting down to 50%   
+
+
+### v6.5.0 (Alpha) 
 -Added basis for TileFactory function   
 -Updated greetings function to show formal greeting 75% of the time and 25% casual.   
 
-### v6.4.0 (Alpha) (latest)
+### v6.4.0 (Alpha)
 -Added time based greetings   
 
 ### v6.3.1 (Alpha) 
