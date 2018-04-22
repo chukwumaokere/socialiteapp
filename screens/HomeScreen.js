@@ -71,6 +71,10 @@ class Tile extends Component {
 
   const srcPath = imageSources[app];
   const appName = appSources[app];
+  var thetext;
+	if (typeof this.props.children == 'string'){ thetext = this.props.children; /*console.log(this.props.children)*/ }else{ thetext = this.props.children[1];} ;
+  var theimg;
+	if (typeof this.props.children == 'object'){ /*console.log(this.props.children[3].props.source.uri);*/ theimg = this.props.children[3].props.source.uri; }
 	return (
 		<View style={styles.tilea}>
 		<View style={{flex: 1, flexDirection:'row'}}>
@@ -81,7 +85,12 @@ class Tile extends Component {
 			</View>
 		</View>
 			
-			<Text style={styles.appdata}> {this.props.children}</Text>
+			<Text style={styles.appdata}> {thetext} </Text>
+			{/*
+			<View>
+			<Image style={{width: 66, height: 58, resizeMode:'cover',}} source={{uri: theimg}} />	
+			</View>
+			*/}
 		</View>
 	)
   }
