@@ -150,7 +150,7 @@ function TileFactory() {
 		*/
 //		console.log(postObj.length);
 	postObj.concat(igPosts);
-	return postObj;
+	return postObj.concat(igPosts);
 	});
 	//postObj.concat(igPosts);
 	
@@ -188,7 +188,7 @@ const postObj = [
 ]
 
 //pushAry();
-TileFactory().then(whatever => { console.log('hello ' + whatever.length); });
+TileFactory().then(whatever => { console.log('hello ' + whatever.length); postObj = whatever; });
 //console.log(postObj.length); //still prints 12 even though the TileFactory runs...
 
 
