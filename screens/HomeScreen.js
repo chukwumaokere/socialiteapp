@@ -77,20 +77,23 @@ class Tile extends Component {
 	if (typeof this.props.children == 'object'){ /*console.log(this.props.children[3].props.source.uri);*/ theimg = this.props.children[3].props.source.uri; }
 	return (
 		<View style={styles.tilea}>
-		<View style={{flex: 1, flexDirection:'row'}}>
-			<Image style={styles.apiicon} source={srcPath} />
-			<View style={styles.appdetails}>
-				<Text style={styles.apptitle}> app/{appName} </Text>
-				<Text style={styles.postdate}> Posted on: {date} </Text>
+			<View style={{flex: 1, flexDirection:'row'}}>
+				<Image style={styles.apiicon} source={srcPath} />
+				<View style={styles.appdetails}>
+					<Text style={styles.apptitle}> app/{appName} </Text>
+					<Text style={styles.postdate}> Posted on: {date} </Text>
+				</View>
 			</View>
-		</View>
-			
-			<Text style={styles.appdata}> {thetext} </Text>
-			{/*
-			<View>
-			<Image style={{width: 66, height: 58, resizeMode:'cover',}} source={{uri: theimg}} />	
+
+			<View style={{flex: 30,borderWidth:1, borderColor: 'black',}}>	
+				<View style={{flex:2,}}>
+				<Text style={styles.appdata}> {thetext} </Text>
+				</View>
+				<View style={{flex:20,justifyContent:'center', alignItems:'center', borderWidth:1, borderColor: 'red',}}>
+				<Image resizeMode='contain' style={{position:'absolute', top:0,left:0,bottom:0,right:0,}} source={{uri: theimg}} />	
+				</View>
+				
 			</View>
-			*/}
 		</View>
 	)
   }
@@ -474,7 +477,7 @@ const styles = StyleSheet.create({
 	marginBottom: 10,
   },
   postdate: {
-	flex: 2,
+	flex: 10,
 	fontWeight: '300',
 	color: 'grey',
   },
@@ -498,7 +501,7 @@ const styles = StyleSheet.create({
   },
   tilea: {
 	backgroundColor: 'white',
-	height: 200,
+	minHeight: 200,
 	width: width-20,
 	//marginTop: 15,
 	marginBottom: 10,
