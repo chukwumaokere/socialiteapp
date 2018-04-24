@@ -14,7 +14,8 @@ import {
   TouchableOpacity,
   View,
   TextInput,
-  Dimensions
+  Dimensions,
+  Linking
 } from 'react-native';
 import { Icon, Overlay } from 'react-native-elements';
 
@@ -35,6 +36,14 @@ let appSources = {
         pt: 'Pinterest',
         yt: 'YouTube',
         fa: 'Undefined', //fallback
+}
+let appprotocol = {
+	fb: 'fb://feed', //temp
+	ig: 'instagram://media?id=',
+	tw: 'twitter://status?id=',
+	yt: 'youtube://watch?v=',
+	pt: 'pinterest://pin/',
+	fa: 'http://chukwumaokere.com/',
 }
 let iconNames = {
 	facebook: 'facebook-square',
@@ -58,9 +67,11 @@ var width = Dimensions.get('window').width;
 //Declaration of Tile Class:
 class Tile extends Component {
  sendToApp = (link) => {
-      WebBrowser.openBrowserAsync(
-                link
-        );
+	if (link.indexOf("http") == 0){
+		WebBrowser.openBrowserAsync(link);
+	}else{
+		Linking.openURL(link);
+	}
   }
 
   render() {
@@ -83,15 +94,28 @@ class Tile extends Component {
   var thevid = '';
   var likes = 0;
   var comments = 0;
-  var link = 'http://chukwumaokere.com/socialite/' ;
+
+  var link = '';
+	
 	//if (typeof this.props.children == 'object'){ /*console.log(this.props.children[3].props.source.uri);*/ theimg = this.props.children[3].props.source.uri; }; deprecated
 	if (this.props.im){ theimg = this.props.im; } 
 	if (this.props.vi){ thevid = this.props.vi; }
 	if (this.props.likes){likes = this.props.likes;}
 	if (this.props.comments){comments = this.props.comments;} 
-	if (this.props.link){link = this.props.link;}
+	
+	if (this.props.mediaid){
+		link = appprotocol[app] + this.props.mediaid;
+	}
+	if (link && link !== ''){ 
+		//link = this.props.link;
+	}
+	if (!link){
+		link = 'http://chukwumaokere.com/';
+	}
+
   comments > 0 ? comments : 0; 
   likes > 0 ? likes : 0;
+
   var hei;
   var marT;
   var marB;
@@ -205,9 +229,10 @@ function TileFactory() {
 			var tags = post.tags;
 			var datea = new Date(ms);
 			var date = formatDate(datea);
-			
+			var mediaid = post.id;
+
 			igPosts.push(
-				<Tile key={x} src={'ig'} datet={date} im={im} vi={vi} likes={likes} comments={comments} link={url}> {cap} </Tile>
+				<Tile key={x} src={'ig'} datet={date} im={im} vi={vi} likes={likes} comments={comments} link={url} mediaid={mediaid}> {cap} </Tile>
 			);	
 			x++;
 		});
