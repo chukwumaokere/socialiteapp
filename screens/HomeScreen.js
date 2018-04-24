@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { WebBrowser } from 'expo';
+import { WebBrowser, Video } from 'expo';
 import { MonoText } from '../components/StyledText';
 import TopBarNav from 'top-bar-nav';
 import Modal from 'react-native-modal';
@@ -57,6 +57,12 @@ var width = Dimensions.get('window').width;
 
 //Declaration of Tile Class:
 class Tile extends Component {
+ sendToApp = (link) => {
+      WebBrowser.openBrowserAsync(
+                link
+        );
+  }
+
   render() {
   
   var app = this.props.src;
@@ -74,11 +80,41 @@ class Tile extends Component {
   var thetext;
 	if (typeof this.props.children == 'string'){ thetext = this.props.children; /*console.log(this.props.children)*/ }else{ thetext = this.props.children[1];} ;
   var theimg;
-	if (typeof this.props.children == 'object'){ /*console.log(this.props.children[3].props.source.uri);*/ theimg = this.props.children[3].props.source.uri; };
+  var thevid = '';
+  var likes = 0;
+  var comments = 0;
+  var link = 'http://chukwumaokere.com/socialite/' ;
+	//if (typeof this.props.children == 'object'){ /*console.log(this.props.children[3].props.source.uri);*/ theimg = this.props.children[3].props.source.uri; }; deprecated
+	if (this.props.im){ theimg = this.props.im; } 
+	if (this.props.vi){ thevid = this.props.vi; }
+	if (this.props.likes){likes = this.props.likes;}
+	if (this.props.comments){comments = this.props.comments;} 
+	if (this.props.link){link = this.props.link;}
+  comments > 0 ? comments : 0; 
+  likes > 0 ? likes : 0;
   var hei;
   var marT;
   var marB;
 	if (theimg){ hei = 320; marT = 10; marB = 10; };
+
+
+  var imgcomp =  
+		<View style={{flex:20,justifyContent:'center', alignItems:'center', /*borderWidth:1, borderColor: 'red',*/ height: hei, marginTop: marT, marginBottom: marB}}>
+        		<Image resizeMode='contain' style={{position:'absolute', top:0,left:0,bottom:0,right:0, height:320}} source={{uri: theimg}} />
+		</View>	;
+  var vidcomp = 
+		<View style={{flex:20,justifyContent:'center', alignItems:'center', /*borderWidth:1, borderColor: 'red',*/ height: hei, marginTop: marT, marginBottom: marB}}>
+			<Video source={{uri: thevid}} resizeMode='contain' style={{position:'absolute', top:0,left:0,bottom:0,right:0, height:320}} isLooping isMuted={true} rate={1.0} shouldPlay />
+                </View> ;
+  var mediacomp;
+
+	if (vidcomp){
+		mediacomp = vidcomp;
+	}
+	if (imgcomp && thevid == ''){
+		mediacomp = imgcomp;
+	}
+      
 	return (
 		<View style={styles.tilea}>
 			<View style={{flex: 1, flexDirection:'row'}}>
@@ -94,8 +130,26 @@ class Tile extends Component {
 				<Text style={styles.appdata}> {thetext} </Text>
 				</View>
 
-				<View style={{flex:20,justifyContent:'center', alignItems:'center', /*borderWidth:1, borderColor: 'red',*/ height: hei, marginTop: marT, marginBottom: marB}}>
-					<Image resizeMode='contain' style={{position:'absolute', top:0,left:0,bottom:0,right:0, height:320}} source={{uri: theimg}} />	
+				{mediacomp}
+
+				<View style={{flex:2, flexDirection:'row', marginBottom: 5, justifyContent:'space-evenly', alignItems:'center', paddingHorizontal: 20}}>
+
+					<View style={{flexDirection: 'row'}}>
+					<Text style={{fontSize:16}}> {likes} </Text>
+					<Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name={'heart'} size={16} />
+					</View>
+
+					<View style={{flexDirection: 'row'}}>
+					<Text style={{fontSize:16}}> {comments} </Text>
+					<Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name={'comment'} size={16} />
+					</View>
+
+					<View style={{flexDirection: 'row'}}>
+					<TouchableHighlight onPress={() => {this.sendToApp(link)}}>
+					<Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name={'sign-in'} size={20} />
+					</TouchableHighlight>
+					</View>
+
 				</View>
 				
 			</View>
@@ -135,6 +189,11 @@ function TileFactory() {
 		var x = 12;
 		posts.forEach(function(post){
 			var im = post.images.standard_resolution.url;
+			var vi = '';
+			if( post.videos && post.videos !== null ){ 
+				vi = post.videos.standard_resolution.url; 
+			}
+			
 			var cap = '';
 			if(post.caption !== null){
 				cap = post.caption.text;
@@ -146,9 +205,9 @@ function TileFactory() {
 			var tags = post.tags;
 			var datea = new Date(ms);
 			var date = formatDate(datea);
-
+			
 			igPosts.push(
-				<Tile key={x} src={'ig'} datet={date}> {cap} <Image style={{width: 66, height: 58, resizeMode:'contain',}} source={{uri: im}} /> </Tile>
+				<Tile key={x} src={'ig'} datet={date} im={im} vi={vi} likes={likes} comments={comments} link={url}> {cap} </Tile>
 			);	
 			x++;
 		});
@@ -172,7 +231,7 @@ const postObj = [
 	<Tile key={11}> This tile comes from nowhere, so theres no icon </Tile>
 ]
 
-TileFactory().then(whatever => { console.log('hello ' + whatever.length); postObj = whatever; });
+TileFactory().then(whatever => { postObj = whatever; });
 
 class PickerModal extends Component{
         constructor(props){
