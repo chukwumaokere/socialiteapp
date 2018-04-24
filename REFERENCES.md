@@ -40,3 +40,5 @@ https://medium.com/the-react-native-log/tips-for-react-native-images-or-saying-g
 
 
 When passing to using navigation, from the `export default class MainClass extends` we need to pass `this.props.navigation.state.params` to a component and then use `state = this.props.info.info.data;` within that component
+
+https://docs.expo.io/versions/latest/sdk/video
