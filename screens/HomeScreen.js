@@ -74,7 +74,11 @@ class Tile extends Component {
   var thetext;
 	if (typeof this.props.children == 'string'){ thetext = this.props.children; /*console.log(this.props.children)*/ }else{ thetext = this.props.children[1];} ;
   var theimg;
-	if (typeof this.props.children == 'object'){ /*console.log(this.props.children[3].props.source.uri);*/ theimg = this.props.children[3].props.source.uri; }
+	if (typeof this.props.children == 'object'){ /*console.log(this.props.children[3].props.source.uri);*/ theimg = this.props.children[3].props.source.uri; };
+  var hei;
+  var marT;
+  var marB;
+	if (theimg){ hei = 320; marT = 10; marB = 10; };
 	return (
 		<View style={styles.tilea}>
 			<View style={{flex: 1, flexDirection:'row'}}>
@@ -85,12 +89,13 @@ class Tile extends Component {
 				</View>
 			</View>
 
-			<View style={{flex: 30,borderWidth:1, borderColor: 'black',}}>	
+			<View style={{flex: 30, /*borderWidth:1, borderColor: 'black',*/}}>	
 				<View style={{flex:2,}}>
 				<Text style={styles.appdata}> {thetext} </Text>
 				</View>
-				<View style={{flex:20,justifyContent:'center', alignItems:'center', borderWidth:1, borderColor: 'red',}}>
-				<Image resizeMode='contain' style={{position:'absolute', top:0,left:0,bottom:0,right:0,}} source={{uri: theimg}} />	
+
+				<View style={{flex:20,justifyContent:'center', alignItems:'center', /*borderWidth:1, borderColor: 'red',*/ height: hei, marginTop: marT, marginBottom: marB}}>
+					<Image resizeMode='contain' style={{position:'absolute', top:0,left:0,bottom:0,right:0, height:320}} source={{uri: theimg}} />	
 				</View>
 				
 			</View>
