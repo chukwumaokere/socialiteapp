@@ -23,6 +23,7 @@ export default class LoginScreen extends React.Component {
         firstname: '',
         lastname: '',
         phone: '',
+	handlelinks: '',
 
   }
   setData(){
@@ -39,6 +40,7 @@ export default class LoginScreen extends React.Component {
         const {firstname} = this.state;
         const {lastname} = this.state;
         const {phone} = this.state;
+	const {handlelinks} = this.state;
 
         fetch('http://chukwumaokere.com/socialite/webservice/login.php', {
                 method: 'post',
@@ -55,7 +57,7 @@ export default class LoginScreen extends React.Component {
                         phone: phone
                 })
         }).then( (response) => response.json() )
-                .then( (responseJson) => { if(responseJson.response && responseJson.response.includes("Successful")){this.setState({email : responseJson.data.email, firstname: responseJson.data.firstname, lastname: responseJson.data.lastname, phone: responseJson.data.phone}); navigate('Home', {data: this.state,}); /*console.log(responseJson);*/ }else{ Alert.alert(responseJson); console.log('login issue');}} )
+                .then( (responseJson) => { if(responseJson.response && responseJson.response.includes("Successful")){this.setState({email : responseJson.data.email, firstname: responseJson.data.firstname, lastname: responseJson.data.lastname, phone: responseJson.data.phone, handlelinks: responseJson.data.handlelinks }); navigate('Home', {data: this.state,}); console.log(responseJson); }else{ Alert.alert(responseJson); console.log('login issue');}} )
                 .catch( (error) => {console.error(error)} );	
   }
   clearText = () => {

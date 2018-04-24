@@ -30,6 +30,7 @@ export default class AccountDetails extends React.Component {
       { data: [{ value: data.email }], title: 'Email Address' },
       { data: [{ value: data.phone }], title: 'Phone Number' },
       { data: [{ value: data.username }], title: 'Username' },
+      { data: [{ value: data.handlelinks}],  title: 'How to Handle Links to Posts' },
       {
         data: [{ value: '' }],
         title: 'List of Apps',

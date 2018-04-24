@@ -257,7 +257,7 @@ export default TabNavigator(
 			if (routeName == 'AccountDetails'){
 				navigation.navigate(routeName, {data: deets});
 			}else{
-				navigation.navigate(routeName);
+				navigation.navigate(routeName, {data: deets});
 			}
 		}
 	}

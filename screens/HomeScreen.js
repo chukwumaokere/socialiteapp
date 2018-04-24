@@ -66,19 +66,29 @@ var width = Dimensions.get('window').width;
 
 //Declaration of Tile Class:
 class Tile extends Component {
- sendToApp = (link) => {
-	if (link.indexOf("http") == 0){
+// state = this.props.navigation.state.params.info.data;
+
+ sendToApp = (link, approute, handler) => {	
+	if (handler == 0){
 		WebBrowser.openBrowserAsync(link);
-	}else{
-		Linking.openURL(link);
+	}
+	if (handler == 1 && approute && approute !== null && approute !== undefined && approute !== ''){
+		if (approute.indexOf("http") == 0){
+			WebBrowser.openBrowserAsync(link);
+		}else{
+			Linking.openURL(approute);
+		}
+	}
+	if (handler == 1 && (!approute || approute == null || approute =='') ){
+		WebBrowser.openBrowserAsync(link);
 	}
   }
 
   render() {
-  
+  var handler = 1;  //Need to get handler value from settings fetch. 
   var app = this.props.src;
   var date = this.props.datet;
-
+ 
   if (date === undefined){
      var date = 'No date information';
   }
@@ -95,21 +105,23 @@ class Tile extends Component {
   var likes = 0;
   var comments = 0;
 
-  var link = '';
+  var link;
+  var approute = '';
 	
 	//if (typeof this.props.children == 'object'){ /*console.log(this.props.children[3].props.source.uri);*/ theimg = this.props.children[3].props.source.uri; }; deprecated
 	if (this.props.im){ theimg = this.props.im; } 
 	if (this.props.vi){ thevid = this.props.vi; }
 	if (this.props.likes){likes = this.props.likes;}
 	if (this.props.comments){comments = this.props.comments;} 
-	
+	if (this.props.link){link = this.props.link;}
+
 	if (this.props.mediaid){
-		link = appprotocol[app] + this.props.mediaid;
+		approute = appprotocol[app] + this.props.mediaid;
 	}
 	if (link && link !== ''){ 
-		//link = this.props.link;
+		link = this.props.link;
 	}
-	if (!link){
+	if (link && link == '' || link == null){
 		link = 'http://chukwumaokere.com/';
 	}
 
@@ -169,7 +181,7 @@ class Tile extends Component {
 					</View>
 
 					<View style={{flexDirection: 'row'}}>
-					<TouchableHighlight onPress={() => {this.sendToApp(link)}}>
+					<TouchableHighlight onPress={() => {this.sendToApp(link, approute, handler)}}>
 					<Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name={'sign-in'} size={20} />
 					</TouchableHighlight>
 					</View>
