@@ -58,7 +58,7 @@ export default class LoginScreen extends React.Component {
                         phone: phone
                 })
         }).then( (response) => response.json() )
-                .then( (responseJson) => { if(responseJson.response && responseJson.response.includes("Successful")){this.setState({email : responseJson.data.email, firstname: responseJson.data.firstname, lastname: responseJson.data.lastname, phone: responseJson.data.phone, handlelinks: responseJson.data.handlelinks, id: responseJson.data.id }); navigate('Home', {data: this.state,}); console.log(responseJson); }else{ Alert.alert(responseJson); console.log('login issue');}} )
+                .then( (responseJson) => { if(responseJson.response && responseJson.response.includes("Successful")){this.setState({email : responseJson.data.email, firstname: responseJson.data.firstname, lastname: responseJson.data.lastname, phone: responseJson.data.phone, handlelinks: Boolean(responseJson.data.handlelinks), id: responseJson.data.id }); navigate('Home', {data: this.state,}); console.log(responseJson); }else{ Alert.alert(responseJson); console.log('login issue');}} )
                 .catch( (error) => {console.error(error)} );	
   }
   clearText = () => {

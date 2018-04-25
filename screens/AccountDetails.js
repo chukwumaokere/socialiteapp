@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionList, Image, StyleSheet, Text, View, TouchableOpacity, Switch } from 'react-native';
+import { SectionList, Image, StyleSheet, Text, View, TouchableOpacity, Switch, Alert } from 'react-native';
 import { ExpoConfigView } from '@expo/samples';
 import { Constants } from 'expo';
 
@@ -12,27 +12,40 @@ export default class AccountDetails extends React.Component {
 	gesturesEnabled: false,
   };
 	
-  state= {
-	handleclicks: false,
-	
-	}
+  state= {id: this.props.navigation.state.params.data.id,
+	  handlelinks: Boolean(this.props.navigation.state.params.data.handlelinks),
+	};
 
-  switchHandler = () => {
-	this.setState({ handleclicks: !this.state.handleclicks });
+  switchHandler = (newval) => {
+	this.setState({ handlelinks: Boolean(newval) });
+	const {id} = this.state;
+	const {handlelinks} = this.state;
+	
+	fetch('http://chukwumaokere.com/socialite/webservice/edit.php', {
+		method: 'post',
+                header: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                },
+		body: JSON.stringify({
+			id : id,
+			handlelinks: newval,
+		})
+	}).then( (response) => response.json() )
+		.then( (responseJson) => { /*Alert.alert(responseJson);*/ if(responseJson.includes("Success")){ /*navigate('Login')*/} return true;} )
+		.catch( (error) => {console.error(error)} );
   }
 
   _Logout = () => {
 	const {navigate} = this.props.navigation;
-	//some log outy things
 	console.log('logging out...');
 	navigate('Login');
   }
  
   render() {
-//	console.log('Settings stuff', this.props.navigation.state.params.data);
 	const data = this.props.navigation.state.params.data;
 	var switchhandler;
-	switchhandler = <View> <Switch onValueChange={() => {this.switchHandler}} value={this.state.handleclicks} /> </View>;
+	switchhandler = <View> <Switch onValueChange={() => {this.switchHandler(!this.state.handlelinks);}} value={this.state.handlelinks} /> </View>;
 	name = data.firstname + ' ' + data.lastname;
     const {navigate} = this.props.navigation;
     const { manifest } = Constants;
@@ -41,7 +54,7 @@ export default class AccountDetails extends React.Component {
       { data: [{ value: data.email }], title: 'Email Address' },
       { data: [{ value: data.phone }], title: 'Phone Number' },
       { data: [{ value: data.username }], title: 'Username' },
-      { data: [{ value: switchhandler}],  title: 'Open Links with In-App Browser' },
+      { data: [{ value: switchhandler}],  title: 'Open Links In Apps' },
       {
         data: [{ value: '' }],
         title: 'List of Apps',
