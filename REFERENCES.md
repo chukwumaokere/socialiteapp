@@ -42,3 +42,39 @@ https://medium.com/the-react-native-log/tips-for-react-native-images-or-saying-g
 When passing to using navigation, from the `export default class MainClass extends` we need to pass `this.props.navigation.state.params` to a component and then use `state = this.props.info.info.data;` within that component
 
 https://docs.expo.io/versions/latest/sdk/video
+
+
+
+//state= this.props.navigation.state.params.data;
+
+const {navigate} = this.props.navigation;
+        //some creaty things
+        //if successful, then do this
+		const {id} = this.state;
+        const {username} = this.state;
+        const {password} = this.state;
+        const {email} = this.state;
+        const {firstname} = this.state;
+        const {lastname} = this.state;
+        const {phone} = this.state;
+        const {handlelinks} = this.state;
+		const {birthday} = this.state;
+
+        fetch('http://chukwumaokere.com/socialite/webservice/edit.php', {
+                method: 'post',
+                header: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+						id : id,
+                        username: username,
+                        password: password,
+                        email: email,
+                        firstname: firstname,
+                        lastname: lastname,
+                        phone: phone
+                })
+        }).then( (response) => response.json() )
+                .then( (responseJson) => { Alert.alert(responseJson); if(responseJson.includes("Success")){ /*navigate('Login')*/} return true;} )
+                .catch( (error) => {console.error(error)} );
