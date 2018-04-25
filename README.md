@@ -12,7 +12,7 @@ Open source app for a social media aggregate site built on React-Native.
 -Added video looping preview in create screen. Needs fixing.   
 -Added Open links in in app browser switch to settings screen. Needs fixing.    
 
-### v6.7.2 (Alpha) (latest)
+### v6.7.2 (Alpha) 
 -Added support in code to handle clicks based on settings. Need to pull from settings screen   
 
 ### v6.7.1 (Alpha) 
