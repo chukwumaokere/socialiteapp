@@ -8,6 +8,9 @@ Open source app for a social media aggregate site built on React-Native.
 ### [v3.2.0](http://chukwumaokere.com/socialite/downloads/socialitev320.tar.gz) Released: April 9, 2018   
     
 ## Updates:   
+### v6.8.0 (Alpha) (latest)
+-Finished interaction between login and open links in app switch   
+-Added edit account endpoint and interaction between end point and account screen    
 ### v6.7.3 (Alpha) (latest) 
 -Added video looping preview in create screen. Needs fixing.   
 -Added Open links in in app browser switch to settings screen. Needs fixing.    
