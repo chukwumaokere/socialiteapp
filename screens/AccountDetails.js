@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionList, Image, StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
+import { SectionList, Image, StyleSheet, Text, View, TouchableOpacity, Switch } from 'react-native';
 import { ExpoConfigView } from '@expo/samples';
 import { Constants } from 'expo';
 
@@ -11,6 +11,15 @@ export default class AccountDetails extends React.Component {
      headerLeft: null,
 	gesturesEnabled: false,
   };
+	
+  state= {
+	handleclicks: false,
+	
+	}
+
+  switchHandler = () => {
+	this.setState({ handleclicks: !this.state.handleclicks });
+  }
 
   _Logout = () => {
 	const {navigate} = this.props.navigation;
@@ -18,10 +27,12 @@ export default class AccountDetails extends React.Component {
 	console.log('logging out...');
 	navigate('Login');
   }
-
+ 
   render() {
 //	console.log('Settings stuff', this.props.navigation.state.params.data);
 	const data = this.props.navigation.state.params.data;
+	var switchhandler;
+	switchhandler = <View> <Switch onValueChange={() => {this.switchHandler}} value={this.state.handleclicks} /> </View>;
 	name = data.firstname + ' ' + data.lastname;
     const {navigate} = this.props.navigation;
     const { manifest } = Constants;
@@ -30,7 +41,7 @@ export default class AccountDetails extends React.Component {
       { data: [{ value: data.email }], title: 'Email Address' },
       { data: [{ value: data.phone }], title: 'Phone Number' },
       { data: [{ value: data.username }], title: 'Username' },
-      { data: [{ value: data.handlelinks}],  title: 'How to Handle Links to Posts' },
+      { data: [{ value: switchhandler}],  title: 'Open Links with In-App Browser' },
       {
         data: [{ value: '' }],
         title: 'List of Apps',
