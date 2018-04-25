@@ -18,7 +18,7 @@ import { CheckBox } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
 import Colors from '../constants/Colors';
-import { ImagePicker} from 'expo';
+import { ImagePicker, Video } from 'expo';
 import HomeScreen from '../screens/HomeScreen';
 import AccountDetails from '../screens/AccountDetails';
 import SearchScreen from '../screens/SearchScreen';
@@ -77,7 +77,7 @@ static navigationOptions = {
       //Alert.alert("Image Selected!", result.uri); 
 	this.setState({image: {uri: result.uri} });
 	if (result.type == 'video'){
-		this.setState({previmg: vidimg });
+		this.setState({previmg: {uri: result.uri} });
 		this.setState({prevtext: 'Video'});
 	}else{
       		this.setState({previmg: {uri: result.uri} });
@@ -112,11 +112,17 @@ static navigationOptions = {
         }else{
                 var imgText = 'Replace ' + this.state.prevtext;
                 var imgIcon = 'minus';
+		var imgline; 
                 //var t = 'Image Preview';
                 //var potImgProps = 'source={this.state.image}';
+		if (this.state.prevtext == 'Video'){
+			imgline =  <Video source={this.state.previmg} resizeMode='contain' style={{position:'absolute', top:0,left:0,bottom:0,right:0, height:320}} isLooping isMuted={true} rate={1.0} shouldPlay />;
+		}else{
+			imgline = <Image style={{flex:4}} style={styles.imgprev} source={this.state.previmg}/>;
+		}
                 imgPrev = [<Text key={1} style={styles.imgprevtext}>Preview:</Text>,
 				<View key={2} style={{flex: 1, flexDirection: 'row'}}>
-                                <Image style={{flex:4}} style={styles.imgprev} source={this.state.previmg}/>
+				{imgline}
 				<View style={{flex: 1, justifyContent:'center', alignItems: 'center' }}>
 				<CheckBox size={18} title={'Remove '+this.state.prevtext} checked={true} checkedIcon={'minus'} checkedColor={'#e52f37'} onPress={this.clearImage} />
 				</View>
