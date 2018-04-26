@@ -252,6 +252,8 @@ function TileFactory() {
 	});
 	
 }
+
+
 const postObj = [ 
 	<Tile key={0} src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>,
 	<Tile key={1} src={'fb'} datet={'April 5, 2018 8:37 pm'}> This is just an inspirational line, inspiring you to... be inspirational </Tile>,
@@ -268,7 +270,22 @@ const postObj = [
 	<Tile key={11}> This tile comes from nowhere, so theres no icon </Tile>
 ]
 
-TileFactory().then(whatever => { postObj = whatever; });
+class TileFactoryClass extends Component{
+state = this.props.info.info.data;
+	
+        generateTiles() {
+                TileFactory().then(whatever => { postObj = whatever; }); 
+        }   
+        render(){
+		var scuff;
+                this.generateTiles();
+                return (
+                        postObj
+                );  
+        }   
+}
+
+//TileFactory().then(whatever => { postObj = whatever; });
 
 class PickerModal extends Component{
         constructor(props){
@@ -399,7 +416,8 @@ const All = (props) => (
 	<ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 		<View style={{flex: 1}}>
 			<GreetingHeader info={props} />
-			{postObj}
+			<TileFactoryClass info={props} />
+			{/* {postObj} */}
 		</View>
 	</ScrollView>
 </View>
