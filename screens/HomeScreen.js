@@ -69,17 +69,17 @@ class Tile extends Component {
 // state = this.props.navigation.state.params.info.data;
 
  sendToApp = (link, approute, handler) => {	
-	if (handler == 0){
+	if (handler == false || handler == undefined){
 		WebBrowser.openBrowserAsync(link);
 	}
-	if (handler == 1 && approute && approute !== null && approute !== undefined && approute !== ''){
+	if (handler == true && approute && approute !== null && approute !== undefined && approute !== ''){
 		if (approute.indexOf("http") == 0){
 			WebBrowser.openBrowserAsync(link);
 		}else{
 			Linking.openURL(approute);
 		}
 	}
-	if (handler == 1 && (!approute || approute == null || approute =='') ){
+	if (handler == true && (!approute || approute == null || approute =='') ){
 		WebBrowser.openBrowserAsync(link);
 	}
   }
@@ -88,7 +88,9 @@ class Tile extends Component {
   var handler = 1;  //Need to get handler value from settings fetch. 
   var app = this.props.src;
   var date = this.props.datet;
- 
+  var clickhandler = false;
+if(this.props.handleclicks){ clickhandler = this.props.handleclicks; } 
+//console.log(this.props.handleclicks);
   if (date === undefined){
      var date = 'No date information';
   }
@@ -181,7 +183,7 @@ class Tile extends Component {
 					</View>
 
 					<View style={{flexDirection: 'row'}}>
-					<TouchableHighlight onPress={() => {this.sendToApp(link, approute, handler)}}>
+					<TouchableHighlight onPress={() => {this.sendToApp(link, approute, clickhandler)}}>
 					<Icon style={styles.appselectoricon} color='#9e9e9e' type='font-awesome' name={'sign-in'} size={20} />
 					</TouchableHighlight>
 					</View>
@@ -215,14 +217,17 @@ function formatDate(date) {
 
   return monthNames[monthIndex] + ' ' + day + ', ' + year + ' ' + timo;
 }
-function TileFactory() {
+var x = 12;
+
+function TileFactory(handlethis) {
 	var igPosts = [];
+	var postObj = [];
+	var theswitch = handlethis;
 	//Instagram
 	return fetch('https://api.instagram.com/v1/users/self/media/recent/?access_token=46253620.561ca3f.abe403ef59b64910869beb5a55fe61a2').then(function(response){ 
 		return response.json();
 	}).then(function(ret){
 		var posts = ret.data;
-		var x = 12;
 		posts.forEach(function(post){
 			var im = post.images.standard_resolution.url;
 			var vi = '';
@@ -244,7 +249,7 @@ function TileFactory() {
 			var mediaid = post.id;
 
 			igPosts.push(
-				<Tile key={x} src={'ig'} datet={date} im={im} vi={vi} likes={likes} comments={comments} link={url} mediaid={mediaid}> {cap} </Tile>
+				<Tile key={x} src={'ig'} datet={date} im={im} vi={vi} likes={likes} comments={comments} link={url} mediaid={mediaid} handleclicks={theswitch}> {cap} </Tile>
 			);	
 			x++;
 		});
@@ -257,15 +262,15 @@ function TileFactory() {
 const postObj = [ 
 	<Tile key={0} src={'fb'} datet={'April 5, 2018 12:34 pm'}> Theres a facebook status that no one cares about! </Tile>,
 	<Tile key={1} src={'fb'} datet={'April 5, 2018 8:37 pm'}> This is just an inspirational line, inspiring you to... be inspirational </Tile>,
-	<Tile key={2} src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>,
-	<Tile key={3} src={'fb'} datet={'April 5, 2018 11:36 am'}> Phillip is a tool </Tile>,
-	<Tile key={4} src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>,
+	<Tile key={2}  src={'ig'} datet={'April 5, 2018 11:36 am'}> Cute instagram pic with you and bae! </Tile>,
+	<Tile key={3}  src={'fb'} datet={'April 5, 2018 11:36 am'}> Phillip is a tool </Tile>,
+	<Tile key={4}  src={'tw'} datet={'April 5, 2018 10:25 am'}> This would be a tweet! But you have none.. </Tile>,
 	<Tile key={5} src={'fb'} datet={'April 5, 2018 10:25 am'}> Marsha is pregnant... again </Tile>,
-	<Tile key={6} src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>,
-	<Tile key={7} src={'fb'} datet={'April 4, 2018 10:24 pm'}> Cindy is engaged AGAIN.. </Tile>,
-	<Tile key={8} src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>,
-	<Tile key={9} src={'fb'} datet={'April 4, 2018 09:34 pm'}> Sharkeisha is Sharkeisha </Tile>,
-	
+	<Tile key={6}  src={'yt'} datet={'April 4, 2018 10:24 pm'}> YouTube content, if you had any. </Tile>,
+	<Tile key={7}  src={'fb'} datet={'April 4, 2018 10:24 pm'}> Cindy is engaged AGAIN.. </Tile>,
+	<Tile key={8}  src={'pt'} datet={'April 4, 2018 09:34 pm'}> Who even uses pintrest? </Tile>,
+	<Tile key={9}  src={'fb'} datet={'April 4, 2018 09:34 pm'}> Sharkeisha is Sharkeisha </Tile>,
+
 	<Tile key={10}> This tile comes from nowhere, so theres no icon </Tile>,
 	<Tile key={11}> This tile comes from nowhere, so theres no icon </Tile>
 ]
@@ -416,8 +421,8 @@ const All = (props) => (
 	<ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 		<View style={{flex: 1}}>
 			<GreetingHeader info={props} />
-			<TileFactoryClass info={props} />
-			{/* {postObj} */}
+			{/*<TileFactoryClass info={props} /> */}
+			{postObj} 
 		</View>
 	</ScrollView>
 </View>
@@ -454,10 +459,17 @@ export default class HomeScreen extends React.Component {
 	header: null,
 	gesturesEnabled: false,
   };
-
+	state=this.props.navigation.state.params.data;
+	generateTiles(handle) {
+		var handleparam = handle;
+		console.log(handleparam);
+                TileFactory(handleparam).then(whatever => { postObj = whatever; }); 
+        }
   render() { 
 //console.log('first things first');
-// console.log(this.props.navigation.state.params);
+//console.log(this.props.navigation.state.params);
+//console.log(this.state.handlelinks);
+this.generateTiles(this.state.handlelinks);
     return (
 
       <View style={styles.container}>
