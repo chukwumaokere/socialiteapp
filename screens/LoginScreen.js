@@ -1,7 +1,7 @@
 import { Notifications } from 'expo';
 import { StackNavigator } from 'react-navigation';
-import React from 'react';
-import { ScrollView, StyleSheet, SafeAreaView, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View, Image, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
+import React, { Component } from 'react';
+import { Button, ScrollView, StyleSheet, SafeAreaView, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View, Image, InputAccessoryView, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { SearchBar } from 'react-native-elements';
 
@@ -65,6 +65,7 @@ export default class LoginScreen extends React.Component {
 	this.search.clear();
   }
   render() {
+	const inputAccessoryViewID = "uniqueID";
     const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
@@ -78,7 +79,7 @@ export default class LoginScreen extends React.Component {
 			<Text style={styles.h2}>All your social media in one place</Text>
 		</View>
 		<View style={styles.infoContainer}>
-			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Username..." textContentType='none' secureTextEntry={false} placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} autoCapitalize={'none'} autoCorrect={false} onChangeText={(something) => {this.setState({username: something})}} />
+			<TextInput style={styles.input} returnKeyType='next' placeholder="Enter Username..." textContentType='none' inputAccessoryView={inputAccessoryViewID} secureTextEntry={false} placeholderTextColor="rgba(0,0,0,0.3)" onSubmitEditing={()=> this.refs.txtPassword.focus()} autoCapitalize={'none'} autoCorrect={false} onChangeText={(something) => {this.setState({username: something})}} />
 			<TextInput style={styles.input} returnKeyType='go'  placeholder="Enter Password..." placeholderTextColor="rgba(0,0,0,0.3)" textContentType='none' secureTextEntry={true} autoCorrect={false} ref={'txtPassword'} clearButtonMode={'while-editing'} onChangeText={(something) => {this.setState({password: something}); this.obscureText  }} />
 			<TouchableOpacity onPress={this.login}>
 				<View style={styles.button}>
@@ -90,6 +91,8 @@ export default class LoginScreen extends React.Component {
 					<Text>Don't have an account? Sign up now!</Text>
 				</View>
 			</TouchableOpacity>
+			{/*<InputAccessoryView nativeID="uniqueID">
+			</InputAccessoryView>*/}
 		</View>
 	   </View>
 	</View>
