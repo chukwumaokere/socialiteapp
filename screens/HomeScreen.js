@@ -15,10 +15,11 @@ import {
   View,
   TextInput,
   Dimensions,
-  Linking
+  Linking,	
+  YellowBox
 } from 'react-native';
 import { Icon, Overlay } from 'react-native-elements';
-
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 var logo = require('../assets/images/icon.png');
 
 let imageSources = { 
@@ -219,10 +220,26 @@ function formatDate(date) {
 }
 var x = 12;
 
-function TileFactory(handlethis) {
+function TileFactory(handlethis, id) {
 	var igPosts = [];
 	var postObj = [];
 	var theswitch = handlethis;
+	var usrid = id;
+
+	fetch('http://chukwumaokere.com/socialite/webservice/retrieve.php', {
+		method: 'post',
+                header: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                        id: usrid,
+                })
+	}).then( (response) => response.json() )
+		.then( (responseJson) => {console.log(responseJson); if(responseJson.response && responseJson.response.includes("Successful")){ theswitch = Boolean(responseJson.data.handlelinks); }else{ theswitch = handlethis; } })
+			 .catch( (error) => {console.error(error)} );
+	
+
 	//Instagram
 	return fetch('https://api.instagram.com/v1/users/self/media/recent/?access_token=46253620.561ca3f.abe403ef59b64910869beb5a55fe61a2').then(function(response){ 
 		return response.json();
@@ -460,16 +477,17 @@ export default class HomeScreen extends React.Component {
 	gesturesEnabled: false,
   };
 	state=this.props.navigation.state.params.data;
-	generateTiles(handle) {
+	generateTiles(handle, id) {
 		var handleparam = handle;
-		console.log(handleparam);
-                TileFactory(handleparam).then(whatever => { postObj = whatever; }); 
+		//console.log(handleparam);
+                TileFactory(handleparam, id).then(whatever => { postObj = whatever; }); 
         }
   render() { 
 //console.log('first things first');
 //console.log(this.props.navigation.state.params);
-//console.log(this.state.handlelinks);
-this.generateTiles(this.state.handlelinks);
+console.log(this.state.handlelinks);
+console.log(this.state.id);
+this.generateTiles(this.state.handlelinks, this.state.id);
     return (
 
       <View style={styles.container}>
