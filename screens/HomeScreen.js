@@ -223,9 +223,9 @@ var x = 12;
 function TileFactory(handlethis, id) {
 	var igPosts = [];
 	var postObj = [];
-	var theswitch = handlethis;
+	var theswitchs = handlethis;
 	var usrid = id;
-
+/*
 	fetch('http://chukwumaokere.com/socialite/webservice/retrieve.php', {
 		method: 'post',
                 header: {
@@ -238,8 +238,8 @@ function TileFactory(handlethis, id) {
 	}).then( (response) => response.json() )
 		.then( (responseJson) => {console.log(responseJson); if(responseJson.response && responseJson.response.includes("Successful")){ theswitch = Boolean(responseJson.data.handlelinks); }else{ theswitch = handlethis; } })
 			 .catch( (error) => {console.error(error)} );
-	
-
+*/	
+console.log('in tile factory '+theswitchs);
 	//Instagram
 	return fetch('https://api.instagram.com/v1/users/self/media/recent/?access_token=46253620.561ca3f.abe403ef59b64910869beb5a55fe61a2').then(function(response){ 
 		return response.json();
@@ -266,7 +266,7 @@ function TileFactory(handlethis, id) {
 			var mediaid = post.id;
 
 			igPosts.push(
-				<Tile key={x} src={'ig'} datet={date} im={im} vi={vi} likes={likes} comments={comments} link={url} mediaid={mediaid} handleclicks={theswitch}> {cap} </Tile>
+				<Tile key={x} src={'ig'} datet={date} im={im} vi={vi} likes={likes} comments={comments} link={url} mediaid={mediaid} handleclicks={theswitchs}> {cap} </Tile>
 			);	
 			x++;
 		});
@@ -470,7 +470,7 @@ const ROUTESTACK = [
   { label: 'All', title: 'All' },
   { label: 'By App', title: 'ByApp' }, // label is what you see in the top bar // title is just the name of the Component being rendered.  See the renderScene property below
 ]; 
-
+var theswitch = '';
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
 	header: null,
@@ -479,15 +479,33 @@ export default class HomeScreen extends React.Component {
 	state=this.props.navigation.state.params.data;
 	generateTiles(handle, id) {
 		var handleparam = handle;
-		//console.log(handleparam);
+		console.log('in generate tiles '+handleparam);
                 TileFactory(handleparam, id).then(whatever => { postObj = whatever; }); 
         }
   render() { 
 //console.log('first things first');
 //console.log(this.props.navigation.state.params);
-console.log(this.state.handlelinks);
-console.log(this.state.id);
-this.generateTiles(this.state.handlelinks, this.state.id);
+//console.log(this.state.handlelinks);
+//console.log(this.state.id);
+
+var usrid = this.state.id;
+
+fetch('http://chukwumaokere.com/socialite/webservice/retrieve.php', {
+                method: 'post',
+                header: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                        id: usrid,
+                })
+        }).then( (response) => response.json() )
+                .then( (responseJson) => {console.log(responseJson); if(responseJson.response && responseJson.response.includes("Successful")){ theswitch = Boolean(responseJson.data.handlelinks); console.log('in func '+ theswitch); this.generateTiles(theswitch, this.state.id); console.log(theswitch); }else{ theswitch = true; } }).catch( (error) => {console.error(error)} );
+
+console.log('theswitch is ' + theswitch);
+
+//this.generateTiles(theswitch, this.state.id);
+
     return (
 
       <View style={styles.container}>
