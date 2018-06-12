@@ -45,7 +45,7 @@ export default class AccountDetails extends React.Component {
   render() {
 	const data = this.props.navigation.state.params.data;
 	var switchhandler;
-	switchhandler = <View> <Switch onValueChange={() => {this.switchHandler(!this.state.handlelinks);}} value={this.state.handlelinks} /> </View>;
+	switchhandler = <View> <Switch onValueChange={() => {this.switchHandler(!this.state.handlelinks); Alert.alert('Please log out and in for settings to take effect'); }} value={this.state.handlelinks} /> </View>;
 	name = data.firstname + ' ' + data.lastname;
     const {navigate} = this.props.navigation;
     const { manifest } = Constants;

@@ -244,6 +244,18 @@ export default TabNavigator(
 	if (navigation.state.routeName == 'Home'){
 		stuff = navigation;
 		deets = navigation.state.params.data;
+		var usrid = deets.id;
+		fetch('http://chukwumaokere.com/socialite/webservice/retrieve.php', {
+                method: 'post',
+                header: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                        id: usrid,
+                })
+        }).then( (response) => response.json() )
+                .then( (responseJson) => {if(responseJson.response && responseJson.response.includes("Successful")){ deets.handlelinks = responseJson.data.handlelinks; }else{ var theswitch = true; } }).catch( (error) => {console.error(error)} );
 	}
         return (
           <Ionicons

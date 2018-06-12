@@ -327,7 +327,7 @@ const postObj = [
     <Tile key={10}> This tile comes from nowhere, so theres no icon </Tile>,
     <Tile key={11}> This tile comes from nowhere, so theres no icon </Tile>
 ]
-/*
+
 class TileFactoryClass extends Component{
 state = this.props.info.info.data;
 	
@@ -342,7 +342,7 @@ state = this.props.info.info.data;
                 );  
         }   
 }
-*/
+
 //TileFactory().then(whatever => { postObj = whatever; });
 
 class PickerModal extends Component {
@@ -538,6 +538,9 @@ export default class HomeScreen extends React.Component {
     state = this.props.navigation.state.params.data;
     generateTiles(handle, id) {
         var handleparam = handle;
+	if (!handleparam || handleparam == ''){
+		handleparam = false; 
+	}
         console.log('in generate tiles ' + handleparam);
         TileFactory(handleparam, id).then(whatever => {
             postObj = whatever;
@@ -566,7 +569,7 @@ export default class HomeScreen extends React.Component {
                 if(responseJson.response && responseJson.response.includes("Successful")) {
                     theswitch = Boolean(responseJson.data.handlelinks);
                     console.log('in func ' + theswitch);
-                    this.generateTiles(responseJson.data.handlelinks, this.state.id);
+                    /*this.generateTiles(responseJson.data.handlelinks, this.state.id);*/
                     console.log(theswitch);
                 } else {
                     theswitch = true;
@@ -577,8 +580,8 @@ export default class HomeScreen extends React.Component {
 
         console.log('theswitch is ' + theswitch);
 
-        //this.generateTiles(theswitch, this.state.id);
-
+ //       this.generateTiles(theswitch, this.state.id);
+TileFactory(theswitch, usrid).then(whatever => { postObj = whatever; });
         return(
 
             <View style={styles.container}>
