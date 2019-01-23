@@ -56,7 +56,7 @@ export default class CreateAccount extends React.Component {
 	const {phone} = this.state;
 	const {dobString} = this.state;
 	
-	fetch('http://chukwumaokere.com/socialite/webservice/register.php', {
+	fetch('https://chukwumaokere.com/socialite/webservice/register.php', {
 		method: 'post',
 		header: {
 			'Accept': 'application/json',

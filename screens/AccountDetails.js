@@ -21,7 +21,7 @@ export default class AccountDetails extends React.Component {
 	const {id} = this.state;
 	const {handlelinks} = this.state;
 	
-	fetch('http://chukwumaokere.com/socialite/webservice/edit.php', {
+	fetch('https://chukwumaokere.com/socialite/webservice/edit.php', {
 		method: 'post',
                 header: {
                         'Accept': 'application/json',

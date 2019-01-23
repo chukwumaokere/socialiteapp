@@ -245,7 +245,7 @@ export default TabNavigator(
 		stuff = navigation;
 		deets = navigation.state.params.data;
 		var usrid = deets.id;
-		fetch('http://chukwumaokere.com/socialite/webservice/retrieve.php', {
+		fetch('https://chukwumaokere.com/socialite/webservice/retrieve.php', {
                 method: 'post',
                 header: {
                         'Accept': 'application/json',

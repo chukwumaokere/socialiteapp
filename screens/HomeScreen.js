@@ -54,7 +54,7 @@ let appprotocol = {
     tw: 'twitter://status?id=',
     yt: 'youtube://watch?v=',
     pt: 'pinterest://pin/',
-    fa: 'http://chukwumaokere.com/',
+    fa: 'https://chukwumaokere.com/',
 }
 let iconNames = {
     facebook: 'facebook-square',
@@ -151,7 +151,7 @@ class Tile extends Component {
             link = this.props.link;
         }
         if(link && link == '' || link == null) {
-            link = 'http://chukwumaokere.com/';
+            link = 'https://chukwumaokere.com/';
         }
 
         comments > 0 ? comments : 0;
@@ -554,7 +554,7 @@ export default class HomeScreen extends React.Component {
 
         var usrid = this.state.id;
 
-        fetch('http://chukwumaokere.com/socialite/webservice/retrieve.php', {
+        fetch('https://chukwumaokere.com/socialite/webservice/retrieve.php', {
                 method: 'post',
                 header: {
                     'Accept': 'application/json',

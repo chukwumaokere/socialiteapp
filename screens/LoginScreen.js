@@ -43,7 +43,7 @@ export default class LoginScreen extends React.Component {
         const {phone} = this.state;
 	const {handlelinks} = this.state;
 
-        fetch('http://chukwumaokere.com/socialite/webservice/login.php', {
+        fetch('https://chukwumaokere.com/socialite/webservice/login.php', {
                 method: 'post',
                 header: {
                         'Accept': 'application/json',
